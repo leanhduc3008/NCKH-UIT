@@ -1,34 +1,50 @@
 {
   "project_info": {
-    "project_number": "199733170254",
-    "project_id": "request-ticket-f0db9",
-    "storage_bucket": "request-ticket-f0db9.appspot.com"
+    "project_number": "1075629088067",
+    "firebase_url": "https://chat-researchteam-default-rtdb.firebaseio.com",
+    "project_id": "chat-researchteam",
+    "storage_bucket": "chat-researchteam.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:199733170254:android:f4bdc5db98a9c82db8b31f",
+        "mobilesdk_app_id": "1:1075629088067:android:d6fd6415ec45b6ecc6e3f6",
         "android_client_info": {
-          "package_name": "com.imt.request_ticket"
+          "package_name": "com.example.chatproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "199733170254-m3l883554dhs5p8voc4506esqcg869gr.apps.googleusercontent.com",
+          "client_id": "1075629088067-oh0puhbr9fjlibe8ph659r0ppitk2o94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatproject",
+            "certificate_hash": "5fe2409c67b4d50852a1ff3d62921ca7048ec5c1"
+          }
+        },
+        {
+          "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrHj6e0-OosUx5d8qzkkfCehcT9tOvQm0"
+          "current_key": "AIzaSyDFm6Un1iQ6-_MgHchodBTeqCCxYxJYLWs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "199733170254-m3l883554dhs5p8voc4506esqcg869gr.apps.googleusercontent.com",
+              "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1075629088067-fganrc9b2sg2acoee0apgqkohkfelir9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myreapp"
+              }
             }
           ]
         }
@@ -36,28 +52,115 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:199733170254:android:fe40af20634d2fdcb8b31f",
+        "mobilesdk_app_id": "1:1075629088067:android:11f972ecfd5d55dec6e3f6",
         "android_client_info": {
-          "package_name": "com.imt.ticket"
+          "package_name": "com.example.myreapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "199733170254-m3l883554dhs5p8voc4506esqcg869gr.apps.googleusercontent.com",
+          "client_id": "1075629088067-05ukuthhbt7t1mjitjdouipdglttnhbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myreapp",
+            "certificate_hash": "5fe2409c67b4d50852a1ff3d62921ca7048ec5c1"
+          }
+        },
+        {
+          "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrHj6e0-OosUx5d8qzkkfCehcT9tOvQm0"
+          "current_key": "AIzaSyDFm6Un1iQ6-_MgHchodBTeqCCxYxJYLWs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "199733170254-m3l883554dhs5p8voc4506esqcg869gr.apps.googleusercontent.com",
+              "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1075629088067-fganrc9b2sg2acoee0apgqkohkfelir9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myreapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075629088067:android:849c076ac3d56208c6e3f6",
+        "android_client_info": {
+          "package_name": "com.example.rechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFm6Un1iQ6-_MgHchodBTeqCCxYxJYLWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1075629088067-fganrc9b2sg2acoee0apgqkohkfelir9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myreapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075629088067:android:e9d7a04a6c2eeb24c6e3f6",
+        "android_client_info": {
+          "package_name": "com.imt.ticket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFm6Un1iQ6-_MgHchodBTeqCCxYxJYLWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075629088067-1nd4mpcv0v0v5rg6sch3g48t4g6g9d2h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1075629088067-fganrc9b2sg2acoee0apgqkohkfelir9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myreapp"
+              }
             }
           ]
         }
