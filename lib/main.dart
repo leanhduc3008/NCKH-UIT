@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -15,13 +16,12 @@ void main() async {
       FlutterNativeSplash.preserve(widgetsBinding: binding);
 
       await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
+        name: 'My App',
+        options: DefaultFirebaseOptions.currentPlatform,     
       );
-      await CustomCrashlytics.initialize();
-
       await App.resolveDependencies();
       runApp(const App());
     },
-    CustomCrashlytics.instance.recordError,
+    (e, stack) => FirebaseCrashlytics.instance.recordError(e, stack),
   );
 }

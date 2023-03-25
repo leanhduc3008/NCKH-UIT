@@ -143,7 +143,7 @@ class _ComponentsState extends State<Components> {
                     suffixIcon: Icon(Icons.ac_unit),
                   ),
                   AppTextFormField(
-                    decoration: BorderInputDeconration(
+                    decoration: BorderInputDecoration(
                       hintText: 'Custom success',
                       hintStyle: const TextStyle(color: AppColors.success),
                       borderColor: AppColors.success,
@@ -154,7 +154,7 @@ class _ComponentsState extends State<Components> {
                     ),
                   ),
                   AppTextFormField(
-                    decoration: BorderInputDeconration(
+                    decoration: BorderInputDecoration(
                       hintText: 'Custom error',
                       hintStyle: const TextStyle(color: AppColors.error),
                       borderColor: AppColors.error,
@@ -314,13 +314,6 @@ class _ComponentsState extends State<Components> {
                           );
                         }).toList(),
                       ),
-                      AppDropdownButton(
-                        itemBuilder: (context, int index, closePopup) {
-                          return Text(titles.elementAt(index));
-                        },
-                        itemCount: titles.length,
-                        child: const Text('AppDropdownButton'),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 200),
@@ -357,28 +350,6 @@ class _ComponentsState extends State<Components> {
                     ],
                   ),
                   _buildTitle(context, 9),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Get.showDefaultDialog(
-                              title: const Text('Default Dialog auto'),
-                              content: Text(content),
-                            );
-                          },
-                          child: const Text('DefaultDialog auto')),
-                      OutlinedButton(
-                          onPressed: () {
-                            Get.showDefaultDialog(
-                              title: const Text('Default Dialog'),
-                              content: Text(content),
-                              timeClose: null,
-                            );
-                          },
-                          child: const Text('DefaultDialog')),
-                    ],
-                  ),
                   _buildTitle(context, 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

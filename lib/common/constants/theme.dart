@@ -13,15 +13,21 @@ class AppColors {
 
   static const Color bgTextFormField = Color(0xFFF7F8F9);
 
+  static const Color bgGray = Color(0xFFE9E9E9);
+
   static const Color borderTextFormField = Color(0xFFDADADA);
 
   static const Color blueText = Color(0xFF35C2C1);
+
+  static const Color blueShadow = Color(0xFF1C3E74);
 
   static const Color disabled = Color(0xFFeaeaea);
 
   static const Color grayColor = Color(0xFF979797);
 
   static const Color grayText = Color(0xFF6A707C);
+
+  static const Color gray63 = Color(0xFF636363);
 
   static const Color transparentColor = Color(0x00000000);
 
@@ -34,6 +40,10 @@ class AppColors {
   static const Color label = Color(0xFFFE2472);
 
   static const Color neutral = Color(0x33FFFFFF);
+
+  static const Color darkGreen = Color(0xFF009999);
+
+  static const Color softGray = Color(0xFFF0F0F0);
 
   static const Color tabs = Color.fromRGBO(222, 222, 222, 0.3);
 

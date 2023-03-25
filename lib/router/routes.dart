@@ -1,19 +1,18 @@
 import 'package:get/get.dart';
 
-import '../screens/add_ticket/add_ticket_page.dart';
-import '../screens/floor/floor_page.dart';
+import '../screens/authentication/login/login_binder.dart';
+import '../screens/authentication/login/login_page.dart';
+import '../screens/authentication/register/email_verification/email_verification_binder.dart';
+import '../screens/authentication/register/email_verification/email_verification_page.dart';
+import '../screens/authentication/register/register_binder.dart';
+import '../screens/authentication/register/register_page.dart';
+import '../screens/authentication/register/register_success/register_success_binder.dart';
+import '../screens/authentication/register/register_success/register_success_page.dart';
 import '../screens/home/home_binder.dart';
 import '../screens/home/home_page.dart';
-import '../screens/login/login_binder.dart';
-import '../screens/login/login_page.dart';
 import '../screens/other/empty_page.dart';
+import '../screens/profile/profile_binder.dart';
 import '../screens/profile/profile_page.dart';
-import '../screens/register/otp_register/otp_binder.dart';
-import '../screens/register/otp_register/otp_page.dart';
-import '../screens/register/register_binder.dart';
-import '../screens/register/register_page.dart';
-import '../screens/register/register_success/register_success_binder.dart';
-import '../screens/register/register_success/register_success_page.dart';
 import '../screens/settings/settings_page.dart';
 import '../screens/template/articles.dart';
 import '../screens/template/colors.dart';
@@ -22,6 +21,8 @@ import '../screens/template/onboarding.dart';
 import '../screens/template/pro.dart';
 import '../screens/template/register.dart';
 import '../screens/template/template_page.dart';
+import '../screens/weather/weather_binder.dart';
+import '../screens/weather/weather_page.dart';
 import 'middleware/auth_middleware.dart';
 
 class Routes {
@@ -47,21 +48,17 @@ class Routes {
       middlewares: [AuthMiddleware()],
       binding: HomeBinder(),
       page: () => const HomePage(),
-      children: [
-        GetPage(
-          name: AddTicketPage.routePath,
-          page: () => const AddTicketPage(),
-        ),
-      ],
     ),
     GetPage(
-      name: FloorPage.routePath,
+      name: WeatherPage.routePath,
       middlewares: [AuthMiddleware()],
-      page: () => const FloorPage(),
+      binding: WeatherBinder(),
+      page: () => const WeatherPage(),
     ),
     GetPage(
       name: ProfilePage.routePath,
       middlewares: [AuthMiddleware()],
+      binding: ProfileBinder(),
       page: () => const ProfilePage(),
     ),
     GetPage(
@@ -83,10 +80,10 @@ class Routes {
         binding: RegisterBinder(),
         page: () => const RegisterPage(),
         children: [
-          GetPage<OtpRegisterPage>(
-              name: OtpRegisterPage.routePath,
-              binding: OtpRegisterBinder(),
-              page: () => const OtpRegisterPage(),
+          GetPage<EmailVerificationPage>(
+              name: EmailVerificationPage.routePath,
+              binding: EmailVerificationBinder(),
+              page: () => const EmailVerificationPage(),
               children: [
                 GetPage<RegisterSuccessPage>(
                     name: RegisterSuccessPage.routePath,

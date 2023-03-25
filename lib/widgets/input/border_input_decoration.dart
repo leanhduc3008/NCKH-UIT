@@ -22,8 +22,8 @@ import '../../common/constants/theme.dart';
 ///   },
 /// )
 /// ```
-class BorderInputDeconration extends InputDecoration {
-  BorderInputDeconration({
+class BorderInputDecoration extends InputDecoration {
+  BorderInputDecoration({
     BorderRadius? borderRadius,
     Color? borderColor,
     super.icon,

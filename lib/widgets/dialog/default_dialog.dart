@@ -11,26 +11,10 @@ import '../button/elevated_button.dart';
 import '../button/outlined_button.dart';
 
 extension DefaultDialogExtGetX on GetInterface {
-  Future<T?> showDefaultDialog<T>({
-    Widget? image,
-    Widget? title,
-    Widget? content,
-    Widget? action,
-    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
-    BorderRadiusGeometry? radius,
-    double dialogWidth = Dimens.s7 * 10,
-    Duration? timeClose = const Duration(seconds: 2),
+  Future<T?> showDefaultDialog<T>(
+    DefaultDialog dialog, {
+    Duration? timeClose = const Duration(seconds: 3),
   }) {
-    final dialog = DefaultDialog(
-      image: image,
-      title: title,
-      content: content,
-      action: action,
-      crossAxisAlignment: crossAxisAlignment,
-      mainAxisAlignment: mainAxisAlignment,
-      dialogWidth: dialogWidth,
-    );
     if (timeClose != null) {
       Future.delayed(timeClose).whenComplete(dialog.closeDialog);
     }
@@ -91,6 +75,23 @@ class DefaultDialog extends StatelessWidget {
   }
 
   factory DefaultDialog.alert({
+    Key? key,
+    Widget? title,
+    Widget? content,
+  }) {
+    return DefaultDialog(
+      key: key,
+      image: const Icon(
+        Icons.warning,
+        size: Dimens.s8,
+        color: AppColors.warning,
+      ),
+      title: title,
+      content: content,
+    );
+  }
+
+  factory DefaultDialog.success({
     Key? key,
     VoidCallback? onAgree,
     Widget? title,

@@ -1,21 +1,22 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../common/base/base_page_reponse.dart';
-
 part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-class User with _$User {
-  const factory User({
-    required int id,
-    @Default('') String username,
+class UserModel with _$UserModel {
+  @JsonSerializable(explicitToJson: true)
+  const factory UserModel({
+    @Default('') String id,
+    @Default('') String phoneNumber,
     @Default('') String fullName,
-    @Default(false) bool isAdmin,
-  }) = _User;
+    @Default(0) int age,
+    @Default('') String email,
+  }) = _UserModel;
   // From JSON
-  factory User.fromJson(Json json) => _$UserFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 
   // To JSON
-  const User._();
+  const UserModel._();
 }

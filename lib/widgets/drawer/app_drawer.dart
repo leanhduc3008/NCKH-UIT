@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../common/constants/dimens.dart';
+import '../../common/constants/images.dart';
 import '../../common/constants/theme.dart';
 import '../../common/extension/extenstion.dart';
 
@@ -29,16 +30,17 @@ class AppDrawer extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: Dimens.s1),
-                  Icon(
-                    FontAwesomeIcons.ticket,
-                    size: Dimens.s8,
-                    color: context.colorScheme.primary,
+                  Image.asset(
+                    AppImages.iconApp,
+                    width: Dimens.s8,
+                    height: Dimens.s8,
+                    color: AppColors.darkGreen,
                   ),
-                  const SizedBox(width: Dimens.s3),
+                const SizedBox(width: Dimens.s3),
                   Text(
-                    'Ticket App',
+                    'Touriest App',
                     style: context.textStyle.headlineMedium?.copyWith(
-                      color: context.colorScheme.primary,
+                      color: AppColors.darkGreen,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -110,7 +112,7 @@ class _AppDrawerItemState extends State<AppDrawerItem> {
     }
     final foregroundColor = select
         ? context.colorScheme.onPrimaryContainer
-        : context.colorScheme.primary;
+        : AppColors.darkGreen;
     final backgroundColor = select
         ? context.colorScheme.primaryContainer
         : AppColors.transparentColor;

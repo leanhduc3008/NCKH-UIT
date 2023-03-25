@@ -6,9 +6,8 @@ import '../common/constants/dimens.dart';
 import '../common/extension/extenstion.dart';
 import '../data/provider/auth_provider.dart';
 import '../l10n/generated/l10n.dart';
-import '../screens/floor/floor_page.dart';
+import '../screens/authentication/login/login_page.dart';
 import '../screens/home/home_page.dart';
-import '../screens/login/login_page.dart';
 import '../screens/profile/profile_page.dart';
 import '../screens/settings/settings_page.dart';
 import '../screens/template/articles.dart';
@@ -18,6 +17,7 @@ import '../screens/template/onboarding.dart';
 import '../screens/template/pro.dart';
 import '../screens/template/register.dart';
 import '../screens/template/template_page.dart';
+import '../screens/weather/weather_page.dart';
 import '../widgets/widget.dart';
 
 class RouteMenu {
@@ -53,48 +53,11 @@ class RouteMenu {
       routePath: HomePage.routePath,
       onTap: HomePage.goToPage,
     ),
-    AppDrawerItem(
-      icon: Icons.room,
-      label: L10n.current.floors_page,
-      routePath: FloorPage.routePath,
-      items: [
-        AppDrawerItem(
-          icon: FontAwesomeIcons.one,
-          label: L10n.current.one,
-          routePath: '${FloorPage.routePath}/one',
-          onTap: () => FloorPage.goToPage(1),
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.two,
-          label: L10n.current.two,
-          routePath: '${FloorPage.routePath}/two',
-          onTap: () => FloorPage.goToPage(2),
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.three,
-          label: L10n.current.three,
-          routePath: '${FloorPage.routePath}/three',
-          onTap: () => FloorPage.goToPage(3),
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.four,
-          label: L10n.current.four,
-          routePath: '${FloorPage.routePath}/four',
-          onTap: () => FloorPage.goToPage(4),
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.five,
-          label: L10n.current.five,
-          routePath: '${FloorPage.routePath}/five',
-          onTap: () => FloorPage.goToPage(5),
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.six,
-          label: L10n.current.six,
-          routePath: '${FloorPage.routePath}/six',
-          onTap: () => FloorPage.goToPage(6),
-        ),
-      ],
+    const AppDrawerItem(
+      icon: Icons.sunny,
+      label: 'Dự báo thời tiết',
+      routePath: WeatherPage.routePath,
+      onTap: WeatherPage.goToPage,
     ),
     AppDrawerItem(
       icon: FontAwesomeIcons.user,

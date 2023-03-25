@@ -11,7 +11,7 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CustomCrashlytics.instance.recordFlutterError(errorDetails);
+    FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
 
     return Scaffold(
       backgroundColor: context.colorScheme.error,
@@ -52,7 +52,7 @@ class ErrorFlutterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CustomCrashlytics.instance.recordFlutterError(errorDetails);
+    FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
 
     return Card(
       color: AppColors.error,

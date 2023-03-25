@@ -3,7 +3,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
 import '../../data/provider/auth_provider.dart';
-import '../../screens/login/login_page.dart';
+import '../../screens/authentication/login/login_page.dart';
 
 class AuthMiddleware extends GetMiddleware {
   AuthMiddleware() : super(priority: 1000);

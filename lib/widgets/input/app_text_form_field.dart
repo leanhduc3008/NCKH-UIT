@@ -94,7 +94,7 @@ class AppTextFormField extends StatelessWidget {
       cursorColor: AppColors.black,
       style: style ?? context.textStyle.bodyMedium,
       decoration: decoration ??
-          BorderInputDeconration(
+          BorderInputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hintText,

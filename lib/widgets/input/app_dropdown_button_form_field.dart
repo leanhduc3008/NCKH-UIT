@@ -39,7 +39,7 @@ class AppDropdownButtonFormField<T> extends StatelessWidget {
       icon: icon,
       hint: hint,
       decoration: decoration ??
-          BorderInputDeconration(
+          BorderInputDecoration(
             contentPadding: const EdgeInsets.all(Dimens.s2),
           ),
       value: value,

@@ -1,28 +1,20 @@
+import 'dart:isolate';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
-class CustomCrashlytics {
-  const CustomCrashlytics._();
+export 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
-  /// Singleton instance of CustomDynamicLink Helper
-  static CustomCrashlytics? _instance;
-
-  /// Get instance of this class
-  static CustomCrashlytics get instance =>
-      _instance ??= const CustomCrashlytics._();
-
-  static FirebaseCrashlytics? _crashlytics;
-
-  static Future<void> initialize() async {
-    _crashlytics ??= FirebaseCrashlytics.instance;
-
-    await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
-    FlutterError.onError = _crashlytics!.recordFlutterError;
+extension FirebaseCrashlyticsExt on FirebaseCrashlytics {
+  Future<void> initialize() async {
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    Isolate.current.addErrorListener(RawReceivePort((pair) async {
+      final List<dynamic> errorAndStacktrace = pair;
+      await FirebaseCrashlytics.instance.recordError(
+        errorAndStacktrace.first,
+        errorAndStacktrace.last,
+      );
+    }).sendPort);
   }
-
-  Future<void> recordError(dynamic exception, StackTrace? stack) =>
-      _crashlytics!.recordError(exception, stack);
-
-  Future<void> recordFlutterError(FlutterErrorDetails flutterErrorDetails) =>
-      _crashlytics!.recordFlutterError(flutterErrorDetails);
 }

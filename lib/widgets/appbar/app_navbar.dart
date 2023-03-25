@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/constants/dimens.dart';
+import '../../common/constants/theme.dart';
 import '../../common/extension/context_extension.dart';
 import '../../common/extension/text_extension.dart';
 import '../input/app_text_form_field.dart';
@@ -14,6 +15,7 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
     this.backgroundColor,
     this.title = 'Title',
     this.leading,
+    this.elevation,
     this.actions,
     this.bottom,
   });
@@ -48,14 +50,16 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
   final Color? backgroundColor;
   final Widget? leading;
   final List<Widget>? actions;
+  final double? elevation;
   final PreferredSizeWidget? bottom;
 
   @override
   Widget build(BuildContext context) {
     final foreground = foregroundColor ?? context.colorScheme.onPrimary;
-    final background = backgroundColor ?? context.colorScheme.primary;
+    final background = backgroundColor ?? AppColors.darkGreen;
 
     return AppBar(
+      elevation: elevation,
       centerTitle: false,
       foregroundColor: foreground,
       backgroundColor: background,
@@ -134,11 +138,11 @@ class _SearchNavbar extends StatelessWidget with PreferredSizeWidget {
             vertical: Dimens.s2,
           ),
           child: AppTextFormField(
-            decoration: BorderInputDeconration(
+            decoration: BorderInputDecoration(
               filled: true,
-              fillColor: context.colorScheme.onPrimary,
+              fillColor: AppColors.softGray,
               hintText: hintText,
-              hintStyle: context.textStyle.titleSmall?.weight400,
+              hintStyle: context.textStyle.titleSmall?.weight400.copyWith(color: AppColors.grayText.withOpacity(0.8)),
               contentPadding: const EdgeInsets.symmetric(horizontal: Dimens.s3),
               suffixIcon: const Icon(Icons.search),
             ),

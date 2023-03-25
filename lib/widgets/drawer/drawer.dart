@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/constants/theme.dart';
 import '../../data/provider/auth_provider.dart';
+import '../../screens/authentication/login/login_page.dart';
 import '../../screens/home/home_page.dart';
-import '../../screens/login/login_page.dart';
 import '../../screens/profile/profile_page.dart';
 import '../../screens/settings/settings_page.dart';
 import '../../screens/template/articles.dart';
