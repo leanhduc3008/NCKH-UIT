@@ -96,7 +96,9 @@ class HomePage extends GetView<HomeViewModel> {
       padding: const EdgeInsets.all(8.0),
       child: FloatingActionButton(
           backgroundColor: AppColors.transparentColor,
-          onPressed: () {},
+          onPressed: () {
+            
+          },
           child: Image.asset(
             AppImages.iconChat,
             fit: BoxFit.fill,
