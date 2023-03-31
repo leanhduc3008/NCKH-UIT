@@ -5,16 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../allConst/all_const.dart';
-import 'package:chatproject/widgets/loading.dart';
-import 'package:chatproject/models/chat_users.dart';
-import 'package:chatproject/provider/auth.dart';
-import 'package:chatproject/provider/home.dart';
-import 'package:chatproject/screen/chat_screen.dart';
-import 'package:chatproject/screen/login_screen.dart';
-import 'package:chatproject/screen/profile_screen.dart';
-import 'package:chatproject/utilities/debouncer.dart';
-import 'package:chatproject/utilities/keyboard_utils.dart';
-import 'package:chatproject/screen/blogs_screen.dart';
+import '../../../widgets/chat/loading.dart';
+import './friend_view_model.dart';
+import '../../../data/provider/home_chat.dart';
+import '../chat/chat_page.dart';
+import '../../utilities/debouncer.dart';
+import '../../utilities/keyboard_utils.dart';
+import '../../../common/constants/collections.dart';
+import '../../../../../data/model/user.dart';
+// import 'package:chatproject/screen/blogs_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,19 +30,13 @@ class _HomePageState extends State<HomePage> {
   String _textSearch = "";
   bool isLoading = false;
 
-  late AuthProvider authProvider;
   late String currentUserId;
   late HomeProvider homeProvider;
+  late UserModel curUser;
 
   Debouncer searchDebouncer = Debouncer(milliseconds: 300);
   StreamController<bool> buttonClearController = StreamController<bool>();
   TextEditingController searchTextEditingController = TextEditingController();
-
-  Future<void> googleSignOut() async {
-    authProvider.googleSignOut();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginPage()));
-  }
 
   Future<bool> onBackPress() {
     openDialog();
@@ -136,19 +129,24 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     buttonClearController.close();
   }
+  final _auth = FirebaseAuth.instance;
+  final _db = FirebaseFirestore.instance;
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    authProvider = context.read<AuthProvider>();
+    final usersFireStore = await _db
+      .collection(Collections.users)
+      .where('email', isEqualTo: _auth.currentUser?.email)
+      .get();
+    final UserModel userModel = UserModel(
+        age: usersFireStore.docs.first.data()['age'],
+        email: usersFireStore.docs.first.data()['email'],
+        fullName: usersFireStore.docs.first.data()['fullName'],
+        phoneNumber: usersFireStore.docs.first.data()['phoneNumber']);
+    curUser = userModel;
+    
     homeProvider = context.read<HomeProvider>();
-    if (authProvider.getFirebaseUserId()?.isNotEmpty == true) {
-      currentUserId = authProvider.getFirebaseUserId()!;
-    } else {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-          (Route<dynamic> route) => false);
-    }
 
     scrollController.addListener(scrollListener);
   }
@@ -160,25 +158,14 @@ class _HomePageState extends State<HomePage> {
             centerTitle: true,
             title: const Text('Research Project'),
             actions: [
-              IconButton(
-                  onPressed: () => googleSignOut(),
-                  icon: const Icon(Icons.logout)),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage()));
-                  },
-                  icon: const Icon(Icons.person)),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BlogPage()));
-                  },
-                  icon: const Icon(Icons.pages)),
+              // IconButton(
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => BlogPage()));
+              //     },
+              //     icon: const Icon(Icons.pages)),
             ]),
         body: WillPopScope(
           onWillPop: onBackPress,
@@ -306,7 +293,7 @@ class _HomePageState extends State<HomePage> {
     final firebaseAuth = FirebaseAuth.instance;
     if (documentSnapshot != null) {
       ChatUser userChat = ChatUser.fromDocument(documentSnapshot);
-      if (userChat.id == currentUserId) {
+      if (userChat.email == curUser.email) {
         return const SizedBox.shrink();
       } else {
         return TextButton(

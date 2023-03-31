@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../allconst/all_const.dart';
+import '../../allconst/all_const.dart';
 
 class HomeProvider {
   final FirebaseFirestore firebaseFirestore;
