@@ -2,37 +2,32 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../allconst/all_const.dart';
 import '../../models/chat_messages.dart';
 
 class ChatProvider {
-  final SharedPreferences prefs;
-  final FirebaseFirestore firebaseFirestore;
-  final FirebaseStorage firebaseStorage;
-
   ChatProvider(
-      {required this.prefs,
-      required this.firebaseStorage,
-      required this.firebaseFirestore});
+      {this.firebaseStorage,  this.firebaseFirestore});
+  final FirebaseFirestore? firebaseFirestore;
+  final FirebaseStorage? firebaseStorage;
 
-  UploadTask uploadImageFile(File image, String filename) {
-    Reference reference = firebaseStorage.ref().child(filename);
-    UploadTask uploadTask = reference.putFile(image);
+  UploadTask? uploadImageFile(File image, String filename) {
+    final Reference? reference = firebaseStorage?.ref().child(filename);
+    final UploadTask? uploadTask = reference?.putFile(image);
     return uploadTask;
   }
 
-  Future<void> updateFirestoreData(
+  Future<void>? updateFirestoreData(
       String collectionPath, String docPath, Map<String, dynamic> dataUpdate) {
     return firebaseFirestore
-        .collection(collectionPath)
+        ?.collection(collectionPath)
         .doc(docPath)
         .update(dataUpdate);
   }
 
-  Stream<QuerySnapshot> getChatMessage(String groupChatId, int limit) {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getChatMessage(String groupChatId, int limit) {
     return firebaseFirestore
-        .collection(FirestoreConstants.pathMessageCollection)
+        ?.collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
         .collection(groupChatId)
         .orderBy(FirestoreConstants.timestamp, descending: true)
@@ -42,12 +37,12 @@ class ChatProvider {
 
   void sendChatMessage(String content, int type, String groupChatId,
       String currentUserId, String peerId) {
-    DocumentReference documentReference = firebaseFirestore
-        .collection(FirestoreConstants.pathMessageCollection)
+    final DocumentReference<Map<String, dynamic>>? documentReference = firebaseFirestore
+        ?.collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
         .collection(groupChatId)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
-    ChatMessages chatMessages = ChatMessages(
+    final ChatMessages chatMessages = ChatMessages(
         idFrom: currentUserId,
         idTo: peerId,
         timestamp: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -55,7 +50,7 @@ class ChatProvider {
         type: type);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.set(documentReference, chatMessages.toJson());
+      transaction.set(documentReference!, chatMessages.toJson());
     });
   }
 }

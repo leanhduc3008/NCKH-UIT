@@ -5,7 +5,7 @@ import 'dimens.dart';
 class AppStyles {
   const AppStyles._();
 
-  static const String fontFamily = 'Inter';
+  static const String fontFamily = 'Poppins';
   static const textBaseline = TextBaseline.alphabetic;
   static const leadingDistribution = TextLeadingDistribution.even;
 

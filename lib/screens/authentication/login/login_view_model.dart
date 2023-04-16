@@ -99,8 +99,8 @@ class LoginViewModel extends BaseViewModel<UserModel> {
               content: Text(L10n.current.errorAccountNotRegisted)));
         }
         if (e.code == 'wrong-password') {
-          Get.showDefaultDialog(DefaultDialog.alert(
-              content: Text(L10n.current.wrong_password)));
+          Get.showDefaultDialog(
+              DefaultDialog.alert(content: Text(L10n.current.wrong_password)));
         }
       }
     }

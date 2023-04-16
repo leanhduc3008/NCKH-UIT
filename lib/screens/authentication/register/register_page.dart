@@ -61,14 +61,13 @@ class RegisterPage extends GetView<RegisterViewModel> {
                         onChanged: (String value) =>
                             controller.fullName = value,
                       ),
-                       const SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       TextFieldLoginCustom(
                         icon: const Icon(Icons.face_6_outlined),
                         initialValue: controller.age,
                         validator: controller.validFullName,
                         hintText: 'Tuổi',
-                        onChanged: (String value) =>
-                            controller.age = value,
+                        onChanged: (String value) => controller.age = value,
                       ),
                       const SizedBox(height: 15),
                       TextFieldLoginCustom(

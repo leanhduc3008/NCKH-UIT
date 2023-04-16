@@ -85,7 +85,8 @@ class BorderInputDecoration extends InputDecoration {
                   color: (borderColor ?? AppColors.border).withOpacity(0.1))),
           focusedBorder: OutlineInputBorder(
               borderRadius: borderRadius ?? BorderRadius.all(Dimens.s3.radius),
-              borderSide: BorderSide(color: borderColor ?? AppColors.primary)),
+              borderSide:
+                  BorderSide(color: borderColor ?? AppColors.darkGreen)),
           focusedErrorBorder: OutlineInputBorder(
               borderRadius: borderRadius ?? BorderRadius.all(Dimens.s3.radius),
               borderSide: const BorderSide(color: AppColors.error)),

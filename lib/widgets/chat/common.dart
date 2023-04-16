@@ -12,9 +12,9 @@ Widget errorContainer() {
   );
 }
 
-Widget chatImage({required String imageSrc, required Function onTap}) {
+Widget chatImage({required String imageSrc, required VoidCallback onTap}) {
   return OutlinedButton(
-    onPressed: onTap(),
+    onPressed: onTap,
     child: Image.network(
       imageSrc,
       width: Sizes.dimen_200,
@@ -22,7 +22,9 @@ Widget chatImage({required String imageSrc, required Function onTap}) {
       fit: BoxFit.cover,
       loadingBuilder:
           (BuildContext ctx, Widget child, ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) return child;
+        if (loadingProgress == null) {
+          return child;
+        }
         return Container(
           decoration: BoxDecoration(
             color: AppColors.greyColor2,

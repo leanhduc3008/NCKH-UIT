@@ -8,11 +8,16 @@ import '../screens/authentication/register/register_binder.dart';
 import '../screens/authentication/register/register_page.dart';
 import '../screens/authentication/register/register_success/register_success_binder.dart';
 import '../screens/authentication/register/register_success/register_success_page.dart';
+import '../screens/chat/chat/chat_page.dart';
+import '../screens/detail_destination/screen/detail_destination_binder.dart';
+import '../screens/detail_destination/screen/detail_destination_page.dart';
 import '../screens/home/home_binder.dart';
 import '../screens/home/home_page.dart';
 import '../screens/other/empty_page.dart';
 import '../screens/profile/profile_binder.dart';
 import '../screens/profile/profile_page.dart';
+import '../screens/profile/update_profile/update_profile_binder.dart';
+import '../screens/profile/update_profile/update_profile_page.dart';
 import '../screens/settings/settings_page.dart';
 import '../screens/template/articles.dart';
 import '../screens/template/colors.dart';
@@ -44,11 +49,11 @@ class Routes {
       children: _auth,
     ),
     GetPage(
-      name: HomePage.routePath,
-      middlewares: [AuthMiddleware()],
-      binding: HomeBinder(),
-      page: () => const HomePage(),
-    ),
+        name: HomePage.routePath,
+        middlewares: [AuthMiddleware()],
+        binding: HomeBinder(),
+        page: () => const HomePage(),
+        children: _home),
     GetPage(
       name: WeatherPage.routePath,
       middlewares: [AuthMiddleware()],
@@ -56,11 +61,17 @@ class Routes {
       page: () => const WeatherPage(),
     ),
     GetPage(
-      name: ProfilePage.routePath,
-      middlewares: [AuthMiddleware()],
-      binding: ProfileBinder(),
-      page: () => const ProfilePage(),
-    ),
+        name: ProfilePage.routePath,
+        middlewares: [AuthMiddleware()],
+        binding: ProfileBinder(),
+        page: () => const ProfilePage(),
+        children: [
+          GetPage(
+            name: UpdateProfilePage.routePath,
+            binding: UpdateProfileBinder(),
+            page: () => const UpdateProfilePage(),
+          ),
+        ]),
     GetPage(
       name: SettingsPage.routePath,
       page: () => const SettingsPage(),
@@ -91,6 +102,20 @@ class Routes {
                     page: () => const RegisterSuccessPage()),
               ]),
         ]),
+  ];
+
+  /// ------------------ Home Page ------------------
+  static final List<GetPage> _home = <GetPage>[
+    GetPage<ChatPage>(
+      name: ChatPage.routePath,
+      // binding: RegisterBinder(),
+      page: () => const ChatPage(),
+    ),
+    GetPage<DetailDestinationPage>(
+      name: DetailDestinationPage.routePath,
+      binding: DetailDestinationBinder(),
+      page: () => const DetailDestinationPage(),
+    ),
   ];
 
   /// ------------------ Template -----------------------

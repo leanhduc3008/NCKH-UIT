@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class KeyboardUtils {
+mixin KeyboardUtils {
   static bool isKeyboardShowing() {
-    if (WidgetsBinding.instance != null) {
-      return WidgetsBinding.instance!.window.viewInsets.bottom > 0;
-    } else {
-      return false;
-    }
+      return WidgetsBinding.instance.window.viewInsets.bottom > 0;
+
   }
 
-  static closeKeyboard(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
+  static void closeKeyboard(BuildContext context) {
+    final FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }

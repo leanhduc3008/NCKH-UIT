@@ -13,7 +13,7 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
     this.automaticallyImplyLeading = true,
     this.foregroundColor,
     this.backgroundColor,
-    this.title = 'Title',
+    this.title,
     this.leading,
     this.elevation,
     this.actions,
@@ -25,7 +25,7 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
     bool automaticallyImplyLeading = true,
     Color? foregroundColor,
     Color? backgroundColor,
-    String title = 'Title',
+    String? title,
     Widget? leading,
     List<Widget>? actions,
     PreferredSizeWidget? bottom,
@@ -37,14 +37,14 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
       automaticallyImplyLeading: automaticallyImplyLeading,
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
-      title: title,
+      title: title ?? '',
       leading: leading,
       actions: actions,
       bottom: _SearchNavbar(hintText, onSubmitted, bottom),
     );
   }
 
-  final String title;
+  final String? title;
   final bool automaticallyImplyLeading;
   final Color? foregroundColor;
   final Color? backgroundColor;
@@ -58,26 +58,37 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
     final foreground = foregroundColor ?? context.colorScheme.onPrimary;
     final background = backgroundColor ?? AppColors.darkGreen;
 
-    return AppBar(
-      elevation: elevation,
-      centerTitle: false,
-      foregroundColor: foreground,
-      backgroundColor: background,
-      iconTheme: IconThemeData(color: foreground),
-      actionsIconTheme: IconThemeData(color: foreground),
-      titleSpacing: Dimens.s2,
-      titleTextStyle:
-          context.textStyle.titleMedium?.copyWith(color: foreground),
-      leading: _buildLeading(context, foreground),
-      title: Text(title),
-      actions: actions
-          ?.map((icon) => Padding(
-                padding: const EdgeInsets.only(right: Dimens.s3),
-                child: icon,
-              ))
-          .toList(),
-      bottom: bottom,
-    );
+    return PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: AppColors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              )
+            ]),
+            child: AppBar(
+              elevation: elevation,
+              shadowColor: AppColors.transparentColor,
+              centerTitle: false,
+              foregroundColor: foreground,
+              backgroundColor: background,
+              iconTheme: IconThemeData(color: foreground),
+              actionsIconTheme: IconThemeData(color: foreground),
+              titleSpacing: Dimens.s2,
+              titleTextStyle:
+                  context.textStyle.titleMedium?.copyWith(color: foreground),
+              leading: _buildLeading(context, foreground),
+              title: Text(title ?? ''),
+              actions: actions
+                  ?.map((icon) => Padding(
+                        padding: const EdgeInsets.only(right: Dimens.s3),
+                        child: icon,
+                      ))
+                  .toList(),
+              bottom: bottom,
+            )));
   }
 
   Widget? _buildLeading(BuildContext context, Color color) {
@@ -142,7 +153,8 @@ class _SearchNavbar extends StatelessWidget with PreferredSizeWidget {
               filled: true,
               fillColor: AppColors.softGray,
               hintText: hintText,
-              hintStyle: context.textStyle.titleSmall?.weight400.copyWith(color: AppColors.grayText.withOpacity(0.8)),
+              hintStyle: context.textStyle.titleSmall?.weight400
+                  .copyWith(color: AppColors.grayText.withOpacity(0.8)),
               contentPadding: const EdgeInsets.symmetric(horizontal: Dimens.s3),
               suffixIcon: const Icon(Icons.search),
             ),

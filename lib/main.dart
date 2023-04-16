@@ -17,7 +17,7 @@ void main() async {
 
       await Firebase.initializeApp(
         name: 'My App',
-        options: DefaultFirebaseOptions.currentPlatform,     
+        options: DefaultFirebaseOptions.currentPlatform,
       );
       await App.resolveDependencies();
       runApp(const App());

@@ -4,11 +4,6 @@ import 'package:flutter/foundation.dart';
 import '../allconst/all_const.dart';
 
 class ChatUser extends Equatable {
-  final String id;
-  final String photoUrl;
-  final String displayName;
-  final String phoneNumber;
-  final String aboutMe;
 
   const ChatUser(
       {required this.id,
@@ -16,6 +11,34 @@ class ChatUser extends Equatable {
       required this.displayName,
       required this.phoneNumber,
       required this.aboutMe});
+  factory ChatUser.fromDocument(DocumentSnapshot snapshot) {
+    String photoUrl = '';
+    String nickname = '';
+    String phoneNumber = '';
+    String aboutMe = '';
+
+    try {
+      photoUrl = snapshot.get(FirestoreConstants.photoUrl);
+      nickname = snapshot.get(FirestoreConstants.displayName);
+      phoneNumber = snapshot.get(FirestoreConstants.phoneNumber);
+      aboutMe = snapshot.get(FirestoreConstants.aboutMe);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    return ChatUser(
+        id: snapshot.id,
+        photoUrl: photoUrl,
+        displayName: nickname,
+        phoneNumber: phoneNumber,
+        aboutMe: aboutMe);
+  }
+  final String id;
+  final String photoUrl;
+  final String displayName;
+  final String phoneNumber;
+  final String aboutMe;
 
   ChatUser copyWith({
     String? id,
@@ -37,28 +60,6 @@ class ChatUser extends Equatable {
         FirestoreConstants.phoneNumber: phoneNumber,
         FirestoreConstants.aboutMe: aboutMe,
       };
-  factory ChatUser.fromDocument(DocumentSnapshot snapshot) {
-    String photoUrl = "";
-    String nickname = "";
-    String phoneNumber = "";
-    String aboutMe = "";
-
-    try {
-      photoUrl = snapshot.get(FirestoreConstants.photoUrl);
-      nickname = snapshot.get(FirestoreConstants.displayName);
-      phoneNumber = snapshot.get(FirestoreConstants.phoneNumber);
-      aboutMe = snapshot.get(FirestoreConstants.aboutMe);
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-    return ChatUser(
-        id: snapshot.id,
-        photoUrl: photoUrl,
-        displayName: nickname,
-        phoneNumber: phoneNumber,
-        aboutMe: aboutMe);
-  }
+  @override
   List<Object?> get props => [id, photoUrl, displayName, phoneNumber, aboutMe];
 }

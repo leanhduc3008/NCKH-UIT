@@ -26,6 +26,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.2.18
   flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.4
   fluttertoast: ^8.2.1
   font_awesome_flutter: ^10.4.0
   freezed_annotation: any
@@ -56,6 +57,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/icons/
     - assets/logo/
     - assets/images/
   fonts:
@@ -110,15 +112,12 @@ flutter:
 # ---- Config for package ----
 
 flutter_icons:
-  image_path: "assets/logo/logo.png"
-  adaptive_icon_padding: true
-  adaptive_icon_foreground: "assets/logo/logo.png"
-  adaptive_icon_background: "assets/logo/logo_background.png"
+  image_path: "assets/images/ic_travel_app.png"
   android: "launcher_icon"
   ios: true
 
 flutter_native_splash:
-  image: "assets/images/icon_app_travel.png"
+  image: "assets/images/ic_travel_app.png"
   background_image: "assets/logo/splash_background.png"
 
 flutter_intl:

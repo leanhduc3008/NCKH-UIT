@@ -36,7 +36,7 @@ class AuthProviderImpl extends GetxService implements AuthProvider {
   AuthProviderImpl() : super();
   final NoSqlStorage _storage = Get.find<NoSqlStorage>();
   final collection = FirebaseFirestore.instance.collection(Collections.users);
-  
+
   @override
   Future<void> logout() async {
     _storage.clearEncrypted();

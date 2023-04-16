@@ -1,17 +1,20 @@
 import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import '../../../data/provider/blog_provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:random_string/random_string.dart';
+
+import '../../../data/provider/blog_provider.dart';
 import '../../../data/provider/chat.dart';
 
 class CreateBlog extends StatefulWidget {
+  const CreateBlog({super.key});
+
   @override
-  _CreateBlogState createState() => _CreateBlogState();
+  CreateBlogState createState() => CreateBlogState();
 }
 
-class _CreateBlogState extends State<CreateBlog> {
+class CreateBlogState extends State<CreateBlog> {
   String authorName = '', title = '', desc = '';
 
   late ChatProvider chatProvider;
@@ -19,10 +22,10 @@ class _CreateBlogState extends State<CreateBlog> {
   File? imageFile;
   bool _isLoading = false;
   String imageUrl = '';
-  CrudMethods crudMethods = new CrudMethods();
+  CrudMethods crudMethods = CrudMethods();
 
   Future getImage() async {
-    ImagePicker imagePicker = ImagePicker();
+    final ImagePicker imagePicker = ImagePicker();
     XFile? pickedFile;
     pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -31,42 +34,42 @@ class _CreateBlogState extends State<CreateBlog> {
         setState(() {
           _isLoading = true;
         });
-        print("Hear1");
         uploadImageFile();
-
       }
     }
   }
-  void uploadImageFile() async {
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    UploadTask uploadTask = chatProvider.uploadImageFile(imageFile!, fileName);
+
+  Future<void> uploadImageFile() async {
+    final String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    final UploadTask? uploadTask =
+        chatProvider.uploadImageFile(imageFile!, fileName);
     try {
-      print("Hear2");
-      TaskSnapshot snapshot = await uploadTask;
-      imageUrl = await snapshot.ref.getDownloadURL();
+      final TaskSnapshot? snapshot = await uploadTask;
+      imageUrl = (await snapshot?.ref.getDownloadURL())!;
       setState(() {
         _isLoading = false;
       });
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (_) {
       setState(() {
         _isLoading = false;
       });
     }
   }
-  uploadBlog() async {
+
+  Future<void> uploadBlog() async {
     // print(selectedImage);
     // if (selectedImage != null) {
-      setState(() {
-        _isLoading = true;
-      });
+    setState(() {
+      _isLoading = true;
+    });
 
-      Map<String, String> blogMap = {
-        "imgUrl": "",
-        "authorName": authorName,
-        "title": title,
-        "desc": desc
-      };
-      crudMethods.addData(blogMap).then((result) {
+    final Map<String, String> blogMap = {
+      'imgUrl': '',
+      'authorName': authorName,
+      'title': title,
+      'desc': desc
+    };
+    crudMethods.addData(blogMap).then((result) {
       Navigator.pop(context);
     });
     //   });
@@ -79,9 +82,9 @@ class _CreateBlogState extends State<CreateBlog> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Text(
-              "Blog",
+              'Blog',
               style: TextStyle(fontSize: 22, color: Colors.white),
             )
           ],
@@ -94,82 +97,80 @@ class _CreateBlogState extends State<CreateBlog> {
               uploadBlog();
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.file_upload)),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: const Icon(Icons.file_upload)),
           )
         ],
       ),
       body: _isLoading
           ? Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      )
-          : Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-                onTap: () {
-                  getImage();
-                },
-                child: imageFile != null
-                    ? Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  height: 170,
-                  width: MediaQuery.of(context).size.width,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.file(
-                      imageFile!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-                    : Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  height: 170,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Icon(
-                    Icons.add_a_photo,
-                    color: Colors.black45,
-                  ),
-                )),
-            SizedBox(
-              height: 8,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(hintText: "Author Name"),
-                    onChanged: (val) {
-                      authorName = val;
-                    },
-                  ),
-                  TextField(
-                    decoration: InputDecoration(hintText: "Title"),
-                    onChanged: (val) {
-                      title = val;
-                    },
-                  ),
-                  TextField(
-                    decoration: InputDecoration(hintText: "Desc"),
-                    onChanged: (val) {
-                      desc = val;
-                    },
-                  )
-                ],
-              ),
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
             )
-          ],
-        ),
-      ),
+          : Column(
+            children:  <Widget>[
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    getImage();
+                  },
+                  child: imageFile != null
+                      ? Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
+                          height: 170,
+                          width: MediaQuery.of(context).size.width,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: Image.file(
+                              imageFile!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
+                          height: 170,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(6)),
+                          width: MediaQuery.of(context).size.width,
+                          child: const Icon(
+                            Icons.add_a_photo,
+                            color: Colors.black45,
+                          ),
+                        )),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      decoration: const InputDecoration(hintText: 'Author Name'),
+                      onChanged: (val) {
+                        authorName = val;
+                      },
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(hintText: 'Title'),
+                      onChanged: (val) {
+                        title = val;
+                      },
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(hintText: 'Desc'),
+                      onChanged: (val) {
+                        desc = val;
+                      },
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
     );
   }
 }

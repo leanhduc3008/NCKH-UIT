@@ -1,22 +1,23 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../allConst/all_const.dart';
-import '../../../widgets/chat/loading.dart';
+
 import './friend_view_model.dart';
+import '../../../../../data/model/user.dart';
+import '../../../allConst/all_const.dart';
+import '../../../common/constants/collections.dart';
 import '../../../data/provider/home_chat.dart';
-import '../chat/chat_page.dart';
+import '../../../widgets/chat/loading.dart';
 import '../../utilities/debouncer.dart';
 import '../../utilities/keyboard_utils.dart';
-import '../../../common/constants/collections.dart';
-import '../../../../../data/model/user.dart';
-// import 'package:chatproject/screen/blogs_screen.dart';
+import '../chat/chat_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   int _limit = 20;
   final int _limitIncrement = 20;
-  String _textSearch = "";
+  String _textSearch = '';
   bool isLoading = false;
 
   late String currentUserId;
@@ -129,23 +130,24 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     buttonClearController.close();
   }
+
   final _auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance;
 
   @override
-  void initState() async {
+  Future<void> initState() async {
     super.initState();
     final usersFireStore = await _db
-      .collection(Collections.users)
-      .where('email', isEqualTo: _auth.currentUser?.email)
-      .get();
+        .collection(Collections.users)
+        .where('email', isEqualTo: _auth.currentUser?.email)
+        .get();
     final UserModel userModel = UserModel(
         age: usersFireStore.docs.first.data()['age'],
         email: usersFireStore.docs.first.data()['email'],
         fullName: usersFireStore.docs.first.data()['fullName'],
         phoneNumber: usersFireStore.docs.first.data()['phoneNumber']);
     curUser = userModel;
-    
+
     homeProvider = context.read<HomeProvider>();
 
     scrollController.addListener(scrollListener);
@@ -157,16 +159,17 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
             centerTitle: true,
             title: const Text('Research Project'),
-            actions: [
-              // IconButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => BlogPage()));
-              //     },
-              //     icon: const Icon(Icons.pages)),
-            ]),
+            // actions: [
+            //   // IconButton(
+            //   //     onPressed: () {
+            //   //       Navigator.push(
+            //   //           context,
+            //   //           MaterialPageRoute(
+            //   //               builder: (context) => BlogPage()));
+            //   //     },
+            //   //     icon: const Icon(Icons.pages)),
+            // ]
+            ),
         body: WillPopScope(
           onWillPop: onBackPress,
           child: Stack(
@@ -215,16 +218,18 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 
   Widget buildSearchBar() {
     return Container(
       margin: const EdgeInsets.all(Sizes.dimen_10),
       height: Sizes.dimen_50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Sizes.dimen_30),
+        color: AppColors.spaceLight,
+      ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
             width: Sizes.dimen_10,
@@ -250,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   buttonClearController.add(false);
                   setState(() {
-                    _textSearch = "";
+                    _textSearch = '';
                   });
                 }
               },
@@ -282,17 +287,13 @@ class _HomePageState extends State<HomePage> {
               })
         ],
       ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Sizes.dimen_30),
-        color: AppColors.spaceLight,
-      ),
     );
   }
 
   Widget buildItem(BuildContext context, DocumentSnapshot? documentSnapshot) {
     final firebaseAuth = FirebaseAuth.instance;
     if (documentSnapshot != null) {
-      ChatUser userChat = ChatUser.fromDocument(documentSnapshot);
+      final ChatUser userChat = ChatUser.fromDocument(documentSnapshot);
       if (userChat.email == curUser.email) {
         return const SizedBox.shrink();
       } else {
@@ -308,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                           peerId: userChat.id,
                           peerAvatar: userChat.photoUrl,
                           peerNickname: userChat.displayName,
-                          userAvatar: firebaseAuth.currentUser!.photoURL!,
+                          userAvatar: firebaseAuth.currentUser!.photoURL,
                           peerPhoneNumber: userChat.phoneNumber,
                         )));
           },
