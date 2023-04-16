@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../common/constants/dimens.dart';
+import '../../common/constants/images.dart';
 import '../../common/constants/theme.dart';
 import '../../common/extension/extenstion.dart';
 import '../../data/provider/auth_provider.dart';
@@ -31,90 +32,90 @@ class ProfilePage extends GetView<ProfileViewModel> {
             ),
             backgroundColor: AppColors.borderTextFormField,
             body: SingleChildScrollView(
-              child: Container(
-                decoration:
-                    const BoxDecoration(color: AppColors.transparentColor),
-                child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    decoration: const BoxDecoration(
-                      color: AppColors.borderTextFormField,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: 150,
+                          child: Image.asset(
+                            AppImages.imagesBgProfile,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        const Positioned(
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: AvatarItem())
+                      ],
                     ),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(24.0),
-                            child: AvatarItem(),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(12)),
-                            padding: 16.0.insetAll,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('Thông tin người dùng',
-                                          style: context.textStyle.bodyMedium
-                                              ?.copyWith(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500)),
-                                      GestureDetector(
-                                          onTap: () {},
-                                          child: Text('Cập nhật',
-                                              style: context
-                                                  .textStyle.bodyMedium
-                                                  ?.copyWith(
-                                                      color: AppColors.blueText,
-                                                      fontWeight:
-                                                          FontWeight.w500)))
-                                    ],
-                                  ),
-                                  16.0.gapHeight,
-                                  // ID
-                                  Row(children: [
-                                    const Text('Tên người dùng: '),
-                                    Text(controller.state?.fullName ?? '',
+                    Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12)),
+                      padding: 16.0.insetAll,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Thông tin người dùng',
+                                    style: context.textStyle.bodyMedium
+                                        ?.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500)),
+                                GestureDetector(
+                                    onTap: controller.updateProfile,
+                                    child: Text('Cập nhật',
                                         style: context.textStyle.bodyMedium
                                             ?.copyWith(
-                                                fontWeight: FontWeight.w500))
-                                  ]),
-                                  16.0.gapHeight,
-                                  // Name
-                                  Row(children: [
-                                    const Text('Số điện thoại: '),
-                                    Text(controller.state?.phoneNumber ?? '',
-                                        style: context.textStyle.bodyMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w500))
-                                  ]),
-                                  16.0.gapHeight,
+                                                color: AppColors.blueText,
+                                                fontWeight: FontWeight.w500)))
+                              ],
+                            ),
+                            16.0.gapHeight,
+                            // ID
+                            Row(children: [
+                              const Text('Tên người dùng: '),
+                              Text(controller.state?.fullName ?? '',
+                                  style: context.textStyle.bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500))
+                            ]),
+                            16.0.gapHeight,
+                            // Name
+                            Row(children: [
+                              const Text('Số điện thoại: '),
+                              Text(controller.state?.phoneNumber ?? '',
+                                  style: context.textStyle.bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500))
+                            ]),
+                            16.0.gapHeight,
 
-                                  // Email
-                                  Row(children: [
-                                    const Text('Email: '),
-                                    Text(controller.state?.email ?? '',
-                                        style: context.textStyle.bodyMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w500))
-                                  ]),
-                                  16.gapHeight,
-                                  // Position
-                                  Row(children: [
-                                    const Text('Tuổi: '),
-                                    Text(controller.state?.age.toString() ?? '',
-                                        style: context.textStyle.bodyMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w500))
-                                  ]),
-                                ]),
-                          ),
-                        ])),
-              ),
+                            // Email
+                            Row(children: [
+                              const Text('Email: '),
+                              Text(controller.state?.email ?? '',
+                                  style: context.textStyle.bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500))
+                            ]),
+                            16.gapHeight,
+                            // Position
+                            Row(children: [
+                              const Text('Tuổi: '),
+                              Text(controller.state?.age.toString() ?? '',
+                                  style: context.textStyle.bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.w500))
+                            ]),
+                          ]),
+                    ),
+                  ]),
             ),
             bottomNavigationBar: SafeArea(
               child: Padding(

@@ -24,6 +24,14 @@ enum _AuthKey {
   passwordIMAP,
 }
 
+enum Status {
+  uninitialized,
+  authenticated,
+  authenticating,
+  authenticateError,
+  authenticateCanceled,
+}
+
 class AuthProviderImpl extends GetxService implements AuthProvider {
   AuthProviderImpl() : super();
   final NoSqlStorage _storage = Get.find<NoSqlStorage>();

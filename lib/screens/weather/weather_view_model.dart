@@ -7,7 +7,7 @@ import 'repository/weather_repository.dart';
 class WeatherViewModel extends BaseViewModel<Weather> {
   final WeatherRepository _weatherRepo = Get.find<WeatherRepository>();
   Weather? weather;
-  String name =  '';
+  String name = '';
 
   @override
   Future<Weather?> initialData() async {
@@ -25,7 +25,7 @@ class WeatherViewModel extends BaseViewModel<Weather> {
     return _weatherRepo.getCiyWeather(cityName);
   }
 
-   Future<void> goToCityListPage() async {
+  Future<void> goToCityListPage() async {
     name = await Get.to(() => const CityLists()) ?? '';
   }
 }

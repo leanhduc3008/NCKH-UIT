@@ -25,7 +25,6 @@ class App extends StatelessWidget {
         useMaterial3: true,
         colorScheme: AppColors.lightColorScheme,
         textTheme: AppStyles.textTheme,
-      
       ),
       initialRoute: Routes.initialRoute,
       unknownRoute: Routes.unknownRoute,

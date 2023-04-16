@@ -17,7 +17,7 @@ class RegisterViewModel extends GetxController with StateMixin {
   final UserRepostiory _userRepo = Get.find<UserRepostiory>();
   final AuthRepostiory _authRepo = Get.find<AuthRepostiory>();
 
-  String phoneNumber= '';
+  String phoneNumber = '';
   String fullName = '';
   String age = '';
   String email = '';

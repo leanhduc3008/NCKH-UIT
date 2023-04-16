@@ -13,6 +13,7 @@ export 'card/card_square.dart';
 export 'carousel/app_carousel.dart';
 export 'carousel/slider_product.dart';
 export 'cell/table_cell.dart';
+export 'chat/loading.dart';
 export 'dialog/default_dialog.dart';
 export 'dialog/message_dialog.dart';
 export 'drawer/app_drawer.dart';

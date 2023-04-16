@@ -1,20 +1,56 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../common/constants/collections.dart';
-import '../../../common/constants/theme.dart';
 import '../../../data/model/user.dart';
+import '../../../l10n/generated/l10n.dart';
+import '../../../widgets/widget.dart';
 
 class UserRepostiory extends GetxController {
-  static UserRepostiory get instance => Get.find();
-
-  final _db = FirebaseFirestore.instance;
+  final users = FirebaseFirestore.instance.collection(Collections.users);
 
   Future<void> createNewUser(UserModel user) async {
-    try {
-      await _db.collection(Collections.users).add(user.toJson());
-    } catch (e) {
-      Get.snackbar('Error', e.toString(), colorText: AppColors.error);
-    }
+    await users.add(user.toJson());
+  }
+
+  Future<UserModel?> getUser(String id) async {
+    final datas = await users
+        .withConverter<UserModel>(
+            fromFirestore: (snapshot, _) =>
+                UserModel.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson())
+        .where('id', isEqualTo: id)
+        .get();
+    return datas.docs.first.data();
+  }
+
+  Future<String?> getDocId(String userId) async {
+    late String docId;
+    await users
+        .withConverter<UserModel>(
+            fromFirestore: (snapshot, _) =>
+                UserModel.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson())
+        .where('id', isEqualTo: userId)
+        .get()
+        .then((value) {
+      for (final element in value.docs) {
+        docId = element.id;
+      }
+    });
+    return docId;
+  }
+
+  Future<void> updateUser(
+      String id, String username, String fullName, String position) async {
+    await users
+        .doc(id)
+        .update(
+            {'username': username, 'fullName': fullName, 'position': position})
+        .then((_) => Get.showDefaultDialog(DefaultDialog.success(
+            content: Text(L10n.current.updateSuccessfully))))
+        .catchError((_) => Get.showDefaultDialog(
+            DefaultDialog.alert(content: Text(L10n.current.updateFailed))));
   }
 }

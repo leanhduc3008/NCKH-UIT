@@ -14,23 +14,32 @@ dependencies:
   cloud_firestore: ^4.4.4
   collection: any
   dio: ^5.0.3
+  email_validator: '^2.1.16'
+  equatable: ^2.0.5
   firebase_auth: ^4.3.0
   firebase_core: ^2.8.0
   firebase_crashlytics: ^3.0.15
+  firebase_storage: ^11.0.16
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.2.18
   flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.4
+  fluttertoast: ^8.2.1
   font_awesome_flutter: ^10.4.0
   freezed_annotation: any
   get: ^4.6.5
   get_storage: ^2.1.1
+  google_sign_in: ^6.0.2
+  image_picker: ^0.8.7+1
   intl: any
   intl_utils: any
   json_annotation: any
   pinput: ^2.2.31
+  provider: ^6.0.5
+  random_string: ^2.3.1
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
   url_launcher: ^6.1.10
@@ -48,6 +57,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/icons/
     - assets/logo/
     - assets/images/
   fonts:
@@ -102,15 +112,12 @@ flutter:
 # ---- Config for package ----
 
 flutter_icons:
-  image_path: "assets/logo/logo.png"
-  adaptive_icon_padding: true
-  adaptive_icon_foreground: "assets/logo/logo.png"
-  adaptive_icon_background: "assets/logo/logo_background.png"
+  image_path: "assets/images/ic_travel_app.png"
   android: "launcher_icon"
   ios: true
 
 flutter_native_splash:
-  image: "assets/images/icon_app_travel.png"
+  image: "assets/images/ic_travel_app.png"
   background_image: "assets/logo/splash_background.png"
 
 flutter_intl:

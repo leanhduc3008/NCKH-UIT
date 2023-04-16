@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../common/constants/images.dart';
 import '../../common/constants/theme.dart';
 import '../../router/route_menu.dart';
+import '../../widgets/progress/shimmer_progress.dart';
 import 'city/city_lists.dart';
 import 'controller/city_lists_controller.dart';
 import 'model/weather.dart';
@@ -32,6 +33,9 @@ class _WeatherPageState extends State<WeatherPage> {
             ? _cityListsController.loadCity('Ho Chi Minh City')
             : _cityListsController.loadCity(name),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(body: LogoProgress());
+          }
           if (snapshot.hasData) {
             weather = snapshot.data;
             return Scaffold(
@@ -52,6 +56,7 @@ class _WeatherPageState extends State<WeatherPage> {
       toolbarHeight: 80,
       elevation: 0,
       backgroundColor: AppColors.transparentColor,
+      foregroundColor: AppColors.white,
       title: Center(
         child: Column(
           children: [
@@ -91,8 +96,6 @@ class _WeatherPageState extends State<WeatherPage> {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 130, 0, 10),
-        // width: double.infinity,
-        // height: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topCenter,

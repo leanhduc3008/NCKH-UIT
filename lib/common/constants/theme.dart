@@ -15,6 +15,8 @@ class AppColors {
 
   static const Color bgGray = Color(0xFFE9E9E9);
 
+  static const Color bgCardShadow = Color(0xFFC3C3C3);
+
   static const Color borderTextFormField = Color(0xFFDADADA);
 
   static const Color blueText = Color(0xFF35C2C1);
@@ -25,9 +27,13 @@ class AppColors {
 
   static const Color grayColor = Color(0xFF979797);
 
+  static const Color grayButton = Color(0xFFF9F9F9);
+
   static const Color grayText = Color(0xFF6A707C);
 
   static const Color gray63 = Color(0xFF636363);
+
+  static const Color gray89 = Color(0xFF89807A);
 
   static const Color transparentColor = Color(0x00000000);
 
@@ -41,7 +47,7 @@ class AppColors {
 
   static const Color neutral = Color(0x33FFFFFF);
 
-  static const Color darkGreen = Color(0xFF009999);
+  static const Color darkGreen = Color(0xFF24C690);
 
   static const Color softGray = Color(0xFFF0F0F0);
 

@@ -34,9 +34,9 @@ class AppDrawer extends StatelessWidget {
                     AppImages.iconApp,
                     width: Dimens.s8,
                     height: Dimens.s8,
-                    color: AppColors.darkGreen,
+                    fit: BoxFit.cover,
                   ),
-                const SizedBox(width: Dimens.s3),
+                  const SizedBox(width: Dimens.s3),
                   Text(
                     'Touriest App',
                     style: context.textStyle.headlineMedium?.copyWith(
@@ -110,9 +110,8 @@ class _AppDrawerItemState extends State<AppDrawerItem> {
     if (widget.routePath != null) {
       select = routeName?.endsWith(widget.routePath!) ?? false;
     }
-    final foregroundColor = select
-        ? context.colorScheme.onPrimaryContainer
-        : AppColors.darkGreen;
+    final foregroundColor =
+        select ? context.colorScheme.onPrimaryContainer : AppColors.darkGreen;
     final backgroundColor = select
         ? context.colorScheme.primaryContainer
         : AppColors.transparentColor;

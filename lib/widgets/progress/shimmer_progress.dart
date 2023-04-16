@@ -4,7 +4,6 @@ import 'package:shimmer/shimmer.dart';
 import '../../common/constants/images.dart';
 import '../../common/constants/theme.dart';
 
-
 class DownloadProgress extends StatelessWidget {
   const DownloadProgress({super.key, this.size = 50});
 
@@ -20,7 +19,7 @@ class DownloadProgress extends StatelessWidget {
 }
 
 class LogoProgress extends StatelessWidget {
-  const LogoProgress({super.key, this.size = 50});
+  const LogoProgress({super.key, this.size = 300});
 
   final double size;
 
@@ -28,10 +27,10 @@ class LogoProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
         baseColor: AppColors.bgGray,
-        highlightColor: AppColors.white,
+        highlightColor: AppColors.blueText,
         child: Center(
           child: Image.asset(
-            AppImages.imageWeather,
+            AppImages.imgSunCloud,
             width: size,
             height: size,
             fit: BoxFit.contain,

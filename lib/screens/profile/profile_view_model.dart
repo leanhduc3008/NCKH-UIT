@@ -1,28 +1,29 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 import '../../../../../data/model/user.dart';
-import '../../../common/constants/collections.dart';
 import '../../common/base/base_view_model.dart';
-
+import '../../data/provider/auth_provider.dart';
+import '../authentication/repository/user_repository.dart';
+import 'update_profile/update_profile_page.dart';
 
 class ProfileViewModel extends BaseViewModel<UserModel> {
-  final _auth = FirebaseAuth.instance;
-  final _db = FirebaseFirestore.instance;
+  final userFB = FirebaseAuth.instance.currentUser;
+  final _userRepo = Get.find<UserRepostiory>();
+  final _provider = Get.find<AuthProvider>();
 
   @override
   Future<UserModel?> initialData() async {
-    final usersFireStore = await _db
-        .collection(Collections.users)
-        .where('email', isEqualTo: _auth.currentUser?.email)
-        .get();
-    final UserModel userModel = UserModel(
-        age: usersFireStore.docs.first.data()['age'],
-        email: usersFireStore.docs.first.data()['email'],
-        fullName: usersFireStore.docs.first.data()['fullName'],
-        phoneNumber: usersFireStore.docs.first.data()['phoneNumber']);
+    final UserModel? userModel = await _userRepo.getUser(userFB!.uid);
+    if (userModel != null) {
+      await _provider.saveUser(userModel);
+    }
     return userModel;
+  }
+
+  Future<void> updateProfile() async {
+    Get.toNamed(Get.currentRoute + UpdateProfilePage.routePath);
   }
 }
