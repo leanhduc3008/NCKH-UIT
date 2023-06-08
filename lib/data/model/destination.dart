@@ -10,7 +10,11 @@ class Destination with _$Destination {
     @Default('') String name,
     @Default('') String imageUrl,
     @Default('') String location,
+    @Default(0) double latitude,
+    @Default(0) double longtitude,
     @Default('') String detail,
+    @Default('') String pointReview,
+    @Default(0) int favouriteNumber,
   }) = _Destination;
   // From JSON
   factory Destination.fromJson(Map<String, dynamic> json) =>

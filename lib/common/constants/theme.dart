@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color black = Color(0xFF000000);
 
+  static const Color blackBlur = Color(0xFF535353);
+
   static const Color dark = Color(0xFF1E232C);
 
   static const Color white = Color(0xFFFFFFFF);
+
+  static const Color white1 = Color(0xFFECECEC);
 
   static const Color bgLogin = Color(0xFFF5F5F5);
 
@@ -50,6 +54,8 @@ class AppColors {
   static const Color darkGreen = Color(0xFF24C690);
 
   static const Color softGray = Color(0xFFF0F0F0);
+
+  static const Color goodAir = Color(0xFFABD162);
 
   static const Color tabs = Color.fromRGBO(222, 222, 222, 0.3);
 

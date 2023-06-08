@@ -42,21 +42,32 @@ class DetailDestinationPage extends GetView<DetailDestinationViewModel> {
                       )),
                 ),
                 actions: [
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                        margin: const EdgeInsets.only(right: 4),
-                        height: 37,
-                        width: 37,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.grayButton,
-                        ),
-                        child: const Icon(
-                          Icons.favorite_border_outlined,
-                          size: 15,
-                          color: AppColors.darkGreen,
-                        )),
+                  SimpleBuilder(
+                    builder: (_) => InkWell(
+                      onTap: () {
+                        controller.isFavourite = !controller.isFavourite;
+                        controller.onRefresh();
+                      },
+                      child: Container(
+                          margin: const EdgeInsets.only(right: 4),
+                          height: 37,
+                          width: 37,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.grayButton,
+                          ),
+                          child: controller.isFavourite
+                              ? const Icon(
+                                  Icons.favorite_rounded,
+                                  size: 15,
+                                  color: AppColors.darkGreen,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  size: 15,
+                                  color: AppColors.darkGreen,
+                                )),
+                    ),
                   ),
                 ],
               ),
@@ -138,7 +149,7 @@ class DetailDestinationPage extends GetView<DetailDestinationViewModel> {
                                         ),
                                         3.gapWidth,
                                         Text(
-                                          '100 lượt',
+                                          '${controller.state?.favouriteNumber} lượt',
                                           style: context.textStyle.titleMedium
                                               ?.copyWith(
                                                   fontWeight: FontWeight.w500,
@@ -176,7 +187,7 @@ class DetailDestinationPage extends GetView<DetailDestinationViewModel> {
                                                 color: AppColors.gray89),
                                       ),
                                       Text(
-                                        '4.5/5',
+                                        '${controller.state?.pointReview}/5',
                                         style: context.textStyle.bodyMedium
                                             ?.copyWith(
                                                 fontSize: 12,
@@ -184,6 +195,33 @@ class DetailDestinationPage extends GetView<DetailDestinationViewModel> {
                                                 color: AppColors.black),
                                       ),
                                     ],
+                                  ),
+                                  const Spacer(),
+                                  Container(
+                                    height: 40,
+                                    width: 50,
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.darkGreen,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.darkGreen
+                                              .withOpacity(0.4),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 15,
+                                        ),
+                                      ],
+                                    ),
+                                    child: FittedBox(
+                                      child: IconButton(
+                                          icon: const Icon(
+                                            Icons.map_rounded,
+                                            color: AppColors.white,
+                                            size: 150,
+                                          ),
+                                          onPressed: controller.getToMap),
+                                    ),
                                   )
                                 ],
                               ),

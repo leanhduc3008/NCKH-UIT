@@ -6,6 +6,7 @@ import '../common/constants/dimens.dart';
 import '../common/extension/extenstion.dart';
 import '../data/provider/auth_provider.dart';
 import '../l10n/generated/l10n.dart';
+import '../screens/air_quality/screen/air_quality_screen.dart';
 import '../screens/authentication/login/login_page.dart';
 import '../screens/home/home_page.dart';
 import '../screens/profile/profile_page.dart';
@@ -58,6 +59,12 @@ class RouteMenu {
       label: 'Dự báo thời tiết',
       routePath: WeatherPage.routePath,
       onTap: WeatherPage.goToPage,
+    ),
+    const AppDrawerItem(
+      icon: FontAwesomeIcons.wind,
+      label: 'Chất lượng không khí',
+      routePath: AirQualityPage.routePath,
+      onTap: AirQualityPage.goToPage,
     ),
     AppDrawerItem(
       icon: FontAwesomeIcons.user,

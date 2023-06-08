@@ -10,6 +10,8 @@ import '../../common/constants/theme.dart';
 import '../../common/extension/extenstion.dart';
 import '../../router/route_menu.dart';
 import '../../widgets/button/elevated_button.dart';
+import '../../widgets/image/rounded_rect_image.dart';
+import '../post/post_page.dart';
 import 'home_view_model.dart';
 import 'widget/destination_card.dart';
 import 'widget/home_search_widget.dart';
@@ -62,60 +64,44 @@ class HomePage extends GetView<HomeViewModel> {
                 onPressed: () {}),
           )
         ],
-        // bottom: TabBar(
-        //   labelColor: context.colorScheme.onPrimary,
-        //   unselectedLabelColor: context.colorScheme.onPrimary.withOpacity(.5),
-        //   controller: controller.tabController,
-        //   tabs: [
-        //     Tab(
-        //         child:
-        //         Container(
-        //       padding: const EdgeInsets.all(10),
-        //       decoration: BoxDecoration(
-        //         color: AppColors.darkGreen,
-        //         borderRadius: BorderRadius.circular(10.0),
-        //         border: Border.all(
-        //             color: const Color(0xFFEEEDED).withOpacity(0.2), width: 2),
-        //         boxShadow: [
-        //           BoxShadow(
-        //             color: const Color(0xFFFFFFFF).withOpacity(0.02),
-        //             offset: const Offset(4, 0),
-        //             blurRadius: 4,
-        //           ),
-        //         ],
-        //       ),
-        //       child: const Text(
-        //         'Địa điểm gợi ý',
-        //       ),
-        //     )),
-        //     Tab(
-        //         child: Container(
-        //       padding: const EdgeInsets.all(10),
-        //       decoration: BoxDecoration(
-        //         color: AppColors.grayColor.withOpacity(0.5),
-        //         borderRadius: BorderRadius.circular(10.0),
-        //         border: Border.all(
-        //             color: const Color(0xFFEEEDED).withOpacity(0.2), width: 2),
-        //         boxShadow: [
-        //           BoxShadow(
-        //             color: const Color(0xFFFFFFFF).withOpacity(0.02),
-        //             offset: const Offset(4, 0),
-        //             blurRadius: 4,
-        //           ),
-        //         ],
-        //       ),
-        //       child: const Text(
-        //         'Tất cả bài đăng',
-        //         style: TextStyle(color: AppColors.dark),
-        //       ),
-        //     )),
-        //   ],
-        // ),
       ),
-      body: TabBarView(controller: controller.tabController, children: [
-        _buildBody(context),
-        Center(child: Text(context.l10n.feature_in_development)),
-      ]),
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TabBar(
+              labelColor: AppColors.black,
+              labelPadding: const EdgeInsets.only(left: 20, right: 20),
+              labelStyle: context.textStyle.bodyMedium
+                  ?.copyWith(fontSize: 15, fontWeight: FontWeight.w500),
+              unselectedLabelColor: Colors.grey,
+              controller: controller.tabController,
+              indicator: CircleTabIndicator(color: AppColors.black, radius: 3),
+              dividerColor: Colors.transparent,
+              isScrollable: true,
+              tabs: const [
+                Tab(
+                  child: Text(
+                    'Địa điểm gợi ý',
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Tất cả bài đăng',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          10.gapHeight,
+          Expanded(
+            child: TabBarView(controller: controller.tabController, children: [
+              _buildBody(context),
+              Container(color: AppColors.grayButton, child: const PostPage()),
+            ]),
+          ),
+        ],
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 0, 70),
         child: FloatingActionButton(
@@ -146,32 +132,36 @@ class HomePage extends GetView<HomeViewModel> {
             20.gapHeight,
             Row(
               children: [
-                const HomeSearchWidget(
-                  hintText: 'Tìm kiếm địa điểm',
-                ),
-                const Spacer(),
-                Container(
-                  margin: const EdgeInsets.only(right: Dimens.s4),
-                  height: 54,
-                  width: 54,
-                  decoration: BoxDecoration(
-                    color: AppColors.darkGreen,
-                    borderRadius: BorderRadius.circular(18.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.darkGreen.withOpacity(0.4),
-                        offset: const Offset(0, 4),
-                        blurRadius: 15,
-                      ),
-                    ],
+                const Expanded(
+                  flex: 9,
+                  child: HomeSearchWidget(
+                    hintText: 'Tìm kiếm địa điểm',
                   ),
-                  child: IconButton(
-                      icon: const Icon(
-                        Icons.tune_outlined,
-                        color: AppColors.white,
-                        size: 20,
-                      ),
-                      onPressed: () {}),
+                ),
+                10.gapWidth,
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    height: 54,
+                    decoration: BoxDecoration(
+                      color: AppColors.darkGreen,
+                      borderRadius: BorderRadius.circular(18.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.darkGreen.withOpacity(0.4),
+                          offset: const Offset(0, 4),
+                          blurRadius: 15,
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                        icon: const Icon(
+                          Icons.tune_outlined,
+                          color: AppColors.white,
+                          size: 20,
+                        ),
+                        onPressed: () {}),
+                  ),
                 )
               ],
             ),
@@ -182,99 +172,104 @@ class HomePage extends GetView<HomeViewModel> {
                   ?.copyWith(color: AppColors.black, fontSize: 18),
             ),
             15.gapHeight,
-            CarouselSlider(
-              carouselController: controller.controller,
-              options: CarouselOptions(
-                height: 500,
-                initialPage: controller.current,
-                autoPlay: true,
-                viewportFraction: 1,
-                aspectRatio: width / height,
-                onPageChanged: (index, reason) {
-                  controller.current = index;
-                },
-              ),
-              items: controller.banner
-                  .map<Widget>((banner) => Stack(children: [
-                        SizedBox(
-                          height: 500,
-                          width: double.infinity,
-                          child: ClipRRect(
-                            borderRadius: 12.borderRadius,
-                            child: Image.asset(
-                              banner,
-                              fit: BoxFit.cover,
+            SimpleBuilder(builder: (context) {
+              if (controller.status.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return CarouselSlider(
+                carouselController: controller.controller,
+                options: CarouselOptions(
+                  height: 500,
+                  initialPage: controller.current,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  aspectRatio: width / height,
+                  onPageChanged: (index, reason) {
+                    controller.current = index;
+                  },
+                ),
+                items: controller.listDestination
+                    .map<Widget>((listDestination) => Stack(children: [
+                          SizedBox(
+                            height: 500,
+                            width: double.infinity,
+                            child: RoundedRectImage(
+                              imageURL: controller
+                                      .listDestination[controller.current]
+                                      ?.imageUrl ??
+                                  '',
+                              borderRadius: 12.borderRadius,
                             ),
                           ),
-                        ),
-                        Positioned(
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(15),
-                              decoration: BoxDecoration(
-                                color: AppColors.black.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(18.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.black.withOpacity(0.3),
-                                    offset: const Offset(0, 4),
-                                    blurRadius: 15,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Đà Lạt',
-                                    style: context.textStyle.bodyMedium
-                                        ?.copyWith(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.white),
-                                  ),
-                                  5.gapHeight,
-                                  Row(children: [
-                                    const Icon(
-                                      Icons.location_on_rounded,
-                                      color: AppColors.darkGreen,
+                          Positioned(
+                              left: 0,
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: AppColors.black.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.black.withOpacity(0.3),
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 15,
                                     ),
-                                    5.gapWidth,
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
                                     Text(
-                                      'Lâm Đồng',
-                                      style: context.textStyle.titleMedium
+                                      'Đà Lạt',
+                                      style: context.textStyle.bodyMedium
                                           ?.copyWith(
-                                              color: AppColors.white,
-                                              fontSize: 16),
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.white),
                                     ),
-                                  ]),
-                                  10.gapHeight,
-                                  AppElevatedButton(
-                                    expandedWith: false,
-                                    onPressed: () {},
-                                    backgroundColor: AppColors.darkGreen,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 30),
-                                      child: Text(
-                                        'Xem chi tiết',
-                                        style: context.textStyle.bodyMedium
+                                    5.gapHeight,
+                                    Row(children: [
+                                      const Icon(
+                                        Icons.location_on_rounded,
+                                        color: AppColors.darkGreen,
+                                      ),
+                                      5.gapWidth,
+                                      Text(
+                                        'Lâm Đồng',
+                                        style: context.textStyle.titleMedium
                                             ?.copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.white),
+                                                color: AppColors.white,
+                                                fontSize: 16),
+                                      ),
+                                    ]),
+                                    10.gapHeight,
+                                    AppElevatedButton(
+                                      expandedWith: false,
+                                      onPressed: () {},
+                                      backgroundColor: AppColors.darkGreen,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 30),
+                                        child: Text(
+                                          'Xem chi tiết',
+                                          style: context.textStyle.bodyMedium
+                                              ?.copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColors.white),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ))
-                      ]))
-                  .toList(),
-            ),
+                                  ],
+                                ),
+                              ))
+                        ]))
+                    .toList(),
+              );
+            }),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: controller.banner.asMap().entries.map((entry) {
@@ -319,5 +314,30 @@ class HomePage extends GetView<HomeViewModel> {
         ),
       );
     });
+  }
+}
+
+class CircleTabIndicator extends Decoration {
+  CircleTabIndicator({required Color color, required double radius})
+      : _painter = _CirclePainter(color, radius);
+  final BoxPainter _painter;
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;
+}
+
+class _CirclePainter extends BoxPainter {
+  _CirclePainter(Color color, this.radius)
+      : _paint = Paint()
+          ..color = color
+          ..isAntiAlias = true;
+  final Paint _paint;
+  final double radius;
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
+    final Offset circleOffset =
+        offset + Offset(cfg.size!.width / 2, cfg.size!.height - radius);
+    canvas.drawCircle(circleOffset, radius, _paint);
   }
 }
