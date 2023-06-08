@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../screens/air_quality/screen/air_quality_binder.dart';
+import '../screens/air_quality/screen/air_quality_screen.dart';
 import '../screens/authentication/login/login_binder.dart';
 import '../screens/authentication/login/login_page.dart';
 import '../screens/authentication/register/email_verification/email_verification_binder.dart';
@@ -11,6 +13,8 @@ import '../screens/authentication/register/register_success/register_success_pag
 import '../screens/chat/chat/chat_page.dart';
 import '../screens/detail_destination/screen/detail_destination_binder.dart';
 import '../screens/detail_destination/screen/detail_destination_page.dart';
+import '../screens/detail_destination/screen/google_map/google_map.dart';
+import '../screens/detail_destination/screen/google_map/google_map_binder.dart';
 import '../screens/home/home_binder.dart';
 import '../screens/home/home_page.dart';
 import '../screens/other/empty_page.dart';
@@ -59,6 +63,12 @@ class Routes {
       middlewares: [AuthMiddleware()],
       binding: WeatherBinder(),
       page: () => const WeatherPage(),
+    ),
+    GetPage(
+      name: AirQualityPage.routePath,
+      middlewares: [AuthMiddleware()],
+      binding: AirQualityBinder(),
+      page: () => const AirQualityPage(),
     ),
     GetPage(
         name: ProfilePage.routePath,
@@ -112,10 +122,16 @@ class Routes {
       page: () => const ChatPage(),
     ),
     GetPage<DetailDestinationPage>(
-      name: DetailDestinationPage.routePath,
-      binding: DetailDestinationBinder(),
-      page: () => const DetailDestinationPage(),
-    ),
+        name: DetailDestinationPage.routePath,
+        binding: DetailDestinationBinder(),
+        page: () => const DetailDestinationPage(),
+        children: [
+          GetPage<GoogleMapPage>(
+            name: GoogleMapPage.routePath,
+            binding: GoogleMapBinder(),
+            page: () => const GoogleMapPage(),
+          ),
+        ]),
   ];
 
   /// ------------------ Template -----------------------

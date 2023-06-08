@@ -20,7 +20,6 @@ class HomeSearchWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 270,
           height: 54,
           decoration: BoxDecoration(
             color: AppColors.softGray,

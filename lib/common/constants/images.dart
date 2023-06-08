@@ -25,6 +25,7 @@ class AppImages {
   // Profile
   static const String imagesProfile = '$imagesPath/profile-img.jpg';
   static const String imagesBgProfile = '$imagesPath/profile_bg.png';
+  static const String imagesAvt = '$imagesPath/robin_avt.jpg';
   static const String imagesBgUpdateProfile =
       '$imagesPath/ImgUpdateProfile.jpg';
 
@@ -34,4 +35,10 @@ class AppImages {
 
   // Detail Destination
   static const String imgStarReview = '$imagesPath/star_review.png';
+
+  // Air Quality
+  static const String imgHCM = '$imagesPath/HCM.jpg';
+  static const String imgGoodAir = '$imagesPath/good_air.png';
+  static const String imgModerateAir = '$imagesPath/moderate_air.png';
+  static const String imgQuiteUnhealthyAir = '$imagesPath/unhealthy_air1.png';
 }
