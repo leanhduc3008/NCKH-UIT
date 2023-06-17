@@ -11,13 +11,6 @@ import '../screens/authentication/login/login_page.dart';
 import '../screens/home/home_page.dart';
 import '../screens/profile/profile_page.dart';
 import '../screens/settings/settings_page.dart';
-import '../screens/template/articles.dart';
-import '../screens/template/colors.dart';
-import '../screens/template/components.dart';
-import '../screens/template/onboarding.dart';
-import '../screens/template/pro.dart';
-import '../screens/template/register.dart';
-import '../screens/template/template_page.dart';
 import '../screens/weather/weather_page.dart';
 import '../widgets/widget.dart';
 
@@ -77,50 +70,6 @@ class RouteMenu {
       label: L10n.current.settings_page,
       routePath: SettingsPage.routePath,
       onTap: SettingsPage.goToPage,
-    ),
-    const AppDrawerItem(
-      icon: FontAwesomeIcons.compassDrafting,
-      label: 'Template',
-      routePath: TemplatePage.routePath,
-      onTap: TemplatePage.goToPage,
-      items: [
-        AppDrawerItem(
-          icon: Icons.widgets,
-          label: 'Component',
-          routePath: Components.routePath,
-          onTap: Components.goToPage,
-        ),
-        AppDrawerItem(
-          icon: Icons.palette,
-          label: 'Color',
-          routePath: ColorPage.routePath,
-          onTap: ColorPage.goToPage,
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.newspaper,
-          label: 'Articles',
-          routePath: Articles.routePath,
-          onTap: Articles.goToPage,
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.personSnowboarding,
-          label: 'Onboarding',
-          routePath: Onboarding.routePath,
-          onTap: Onboarding.goToPage,
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.moneyBill,
-          label: 'Pro',
-          routePath: Pro.routePath,
-          onTap: Pro.goToPage,
-        ),
-        AppDrawerItem(
-          icon: FontAwesomeIcons.registered,
-          label: 'Register',
-          routePath: Register.routePath,
-          onTap: Register.goToPage,
-        ),
-      ],
     ),
   ];
 }

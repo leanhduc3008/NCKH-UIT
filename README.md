@@ -1,6 +1,6 @@
 # vinasoy
 
-A IMT Flutter mobile project.
+A com.uit.tourism Flutter mobile project.
 
 ## LEFTHOOK PRE-COMMIT
 
@@ -46,7 +46,7 @@ Architectural pattern **Model–view–viewmodel (MVVM)**
 flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 flutter pub run intl_utils:generate
-flutter run --target="lib/main.dart" --flavor="imt" --dart-define="BASE_URL=http://192.168.100.148:2407"
+flutter run --target="lib/main.dart" --flavor="com.uit.tourism" --dart-define="BASE_URL=http://192.168.100.148:2407"
 
 ```
 
@@ -81,13 +81,13 @@ flutter pub run intl_utils:generate
 ## 1. Andoird
 
 ```dart
-flutter build appbundle --target="lib/main.dart" --flavor="imt" --dart-define="BASE_URL=http://192.168.100.148:2407"
+flutter build appbundle --target="lib/main.dart" --flavor="com.uit.tourism" --dart-define="BASE_URL=http://192.168.100.148:2407"
 ```
 
 ## 2. IOS
 
 ```dart
-flutter build ipa --target="lib/main.dart" --flavor="imt" --dart-define="BASE_URL=http://192.168.100.148:2407"
+flutter build ipa --target="lib/main.dart" --flavor="com.uit.tourism" --dart-define="BASE_URL=http://192.168.100.148:2407"
 ```
 
 ## 3. Test

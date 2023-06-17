@@ -7,7 +7,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../common/extension/extenstion.dart';
@@ -50,15 +49,11 @@ class CreatePostController extends GetxController {
   }
 
   Future<String> uploadImageToStorage(File file) async {
-    final Reference ref = storageRef.child('Post_${file.path}');
-    final UploadTask uploadTask = storageRef.child(file.path).putFile(file);
-    uploadTask.whenComplete(() async {
-      url = ref.getDownloadURL().toString();
-      print(url);
-    }).catchError((onError) {
-      print(onError);
-    });
-    return url;
+    final Reference ref = storageRef.child('Post_images').child('${file.path}.jpg');
+    final UploadTask uploadTask = ref.putFile(file);
+    final snapshot = await uploadTask.whenComplete(() => null);
+    final downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   Future<void> handleSumit() async {
@@ -67,7 +62,7 @@ class CreatePostController extends GetxController {
     await _postRepo.createPost(
         const Uuid().v4(),
         userName,
-        DateFormat('MMMMd', 'vi').format(DateTime.now()),
+        DateTime.now().toString(),
         locationController.text,
         mediaUrl);
     if (postPageVMD != null && homeVMD != null) {

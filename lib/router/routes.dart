@@ -10,7 +10,6 @@ import '../screens/authentication/register/register_binder.dart';
 import '../screens/authentication/register/register_page.dart';
 import '../screens/authentication/register/register_success/register_success_binder.dart';
 import '../screens/authentication/register/register_success/register_success_page.dart';
-import '../screens/chat/chat/chat_page.dart';
 import '../screens/detail_destination/screen/detail_destination_binder.dart';
 import '../screens/detail_destination/screen/detail_destination_page.dart';
 import '../screens/detail_destination/screen/google_map/google_map.dart';
@@ -116,11 +115,6 @@ class Routes {
 
   /// ------------------ Home Page ------------------
   static final List<GetPage> _home = <GetPage>[
-    GetPage<ChatPage>(
-      name: ChatPage.routePath,
-      // binding: RegisterBinder(),
-      page: () => const ChatPage(),
-    ),
     GetPage<DetailDestinationPage>(
         name: DetailDestinationPage.routePath,
         binding: DetailDestinationBinder(),

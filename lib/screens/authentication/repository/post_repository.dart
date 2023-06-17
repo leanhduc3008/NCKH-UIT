@@ -6,9 +6,12 @@ import '../../post/model/post.dart';
 
 class PostRepository extends GetxController {
   final posts = FirebaseFirestore.instance.collection(Collections.posts);
+  final Query queryPosts = FirebaseFirestore.instance
+      .collection(Collections.posts)
+      .orderBy('postDate', descending: true);
 
   Future<List<Post?>> getListPost() async {
-    final datas = await posts
+    final datas = await queryPosts
         .withConverter<Post>(
             fromFirestore: (snapshot, _) => Post.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())

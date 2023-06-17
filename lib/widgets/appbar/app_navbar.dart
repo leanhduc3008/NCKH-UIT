@@ -70,6 +70,7 @@ class AppNavbar extends StatelessWidget with PreferredSizeWidget {
             ]),
             child: AppBar(
               elevation: elevation,
+              scrolledUnderElevation: 0,
               shadowColor: AppColors.transparentColor,
               centerTitle: false,
               foregroundColor: foreground,

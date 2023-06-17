@@ -7,17 +7,17 @@ class AirCard extends StatelessWidget {
 
   final String title;
 
-  final double aqi;
+  final int aqi;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       width: 100,
-      height: 75,
+      height: 80,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: AppColors.blackBlur.withOpacity(0.8),
+          color: const Color(0xFF63C9C9),
           boxShadow: [
             BoxShadow(
               color: AppColors.black.withOpacity(0.02),
@@ -30,15 +30,15 @@ class AirCard extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: AppColors.white,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
             ),
           ),
           Text(
             '$aqi',
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 22,
               color: AppColors.white,
               fontWeight: FontWeight.bold,
             ),
