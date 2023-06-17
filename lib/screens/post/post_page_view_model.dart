@@ -5,7 +5,6 @@ import '../../widgets/bottom_sheet/default_bottom_sheet.dart';
 import '../authentication/repository/post_repository.dart';
 import 'model/post.dart';
 import 'widget/create_post_widget.dart';
-import 'widget/post_test.dart';
 
 class PostPageViewModel extends BaseViewModel<List<Post?>> {
   List<Post?> listPost = [];

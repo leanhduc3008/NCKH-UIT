@@ -5,7 +5,7 @@ import 'dimens.dart';
 class AppStyles {
   const AppStyles._();
 
-  static const String fontFamily = 'Roboto';
+  static const String fontFamily = 'Roboto Slab';
   static const textBaseline = TextBaseline.alphabetic;
   static const leadingDistribution = TextLeadingDistribution.even;
 

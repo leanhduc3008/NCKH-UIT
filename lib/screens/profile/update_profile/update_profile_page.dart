@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../common/constants/dimens.dart';
-import '../../../common/constants/images.dart';
 import '../../../common/constants/theme.dart';
 import '../../../common/extension/extenstion.dart';
 import '../../../widgets/appbar/app_navbar.dart';

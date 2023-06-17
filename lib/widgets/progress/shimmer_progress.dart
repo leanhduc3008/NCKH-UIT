@@ -19,9 +19,11 @@ class DownloadProgress extends StatelessWidget {
 }
 
 class LogoProgress extends StatelessWidget {
-  const LogoProgress({super.key, this.size = 300});
+  const LogoProgress({super.key, this.size = 300, this.logo});
 
   final double size;
+
+  final String? logo;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class LogoProgress extends StatelessWidget {
         highlightColor: AppColors.blueText,
         child: Center(
           child: Image.asset(
-            AppImages.imgSunCloud,
+            logo ?? AppImages.imgSunCloud,
             width: size,
             height: size,
             fit: BoxFit.contain,

@@ -65,6 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'request-ticket-f0db9.appspot.com',
     iosClientId:
         '199733170254-2c641e2d86ls23p3cs05j3t74toh31qc.apps.googleusercontent.com',
-    iosBundleId: 'com.imt.ticket',
+    iosBundleId: 'com.uit.tourism',
   );
 }

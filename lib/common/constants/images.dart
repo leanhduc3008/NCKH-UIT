@@ -41,4 +41,10 @@ class AppImages {
   static const String imgGoodAir = '$imagesPath/good_air.png';
   static const String imgModerateAir = '$imagesPath/moderate_air.png';
   static const String imgQuiteUnhealthyAir = '$imagesPath/unhealthy_air1.png';
+  static const String imgBadAir = '$imagesPath/bad_air.png';
+  static const String imgExtremelyUnhealthy =
+      '$imagesPath/extremely_unhealthy.png';
+  static const String imgDangerous = '$imagesPath/dangerous.png';
+  static const String imgAirShimmer = '$imagesPath/air_shimmer.png';
+  static const String imgAirBg = '$imagesPath/air_bg.png';
 }

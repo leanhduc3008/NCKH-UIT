@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import '../../common/constants/theme.dart';
 import '../../common/extension/extenstion.dart';
 import '../../widgets/image/rounded_image.dart';
+import '../../widgets/image/rounded_rect_image.dart';
 import 'post_page_view_model.dart';
+import 'widget/post_shimmer.dart';
 
 class PostPage extends GetView<PostPageViewModel> {
   const PostPage({super.key});
@@ -14,62 +16,69 @@ class PostPage extends GetView<PostPageViewModel> {
   @override
   Widget build(BuildContext context) {
     return controller.builder((state) {
-      return ListView.separated(
-        shrinkWrap: true,
-        itemCount: controller.listPost.length + 1,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withOpacity(0.1),
-                      offset: const Offset(0, 4),
-                      blurRadius: 10,
-                    ),
-                  ],
-                  borderRadius: const BorderRadius.all(Radius.circular(24))),
-              child: InkWell(
-                onTap: controller.postAPost,
-                child: Row(
-                  children: [
-                    const RoundedImage(
-                      size: 40,
-                      imageURL:
-                          'https://firebasestorage.googleapis.com/v0/b/chat-researchteam.appspot.com/o/robin_avt.jpg?alt=media&token=514c4220-a6a3-4ae7-9769-1fdf67a45907&_gl=1*1ax2pqs*_ga*MTIxNjEzMjQ1Mi4xNjgwNDQ0ODE5*_ga_CW55HF8NVT*MTY4NTgxMDM5OS40LjEuMTY4NTgxMDQzMS4wLjAuMA..',
-                    ),
-                    10.gapWidth,
-                    Text(
-                      'Check-in địa điểm của bạn!',
-                      style: context.textStyle.bodyMedium
-                          ?.copyWith(fontSize: 14, color: AppColors.grayText),
-                    ),
-                    const Spacer(),
-                    const Icon(
-                      FontAwesomeIcons.solidImage,
-                      color: AppColors.darkGreen,
-                    ),
-                    10.gapWidth
-                  ],
+      return RefreshIndicator(
+        onRefresh: controller.onRefresh,
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: controller.listPost.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.black.withOpacity(0.1),
+                        offset: const Offset(0, 4),
+                        blurRadius: 10,
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.all(Radius.circular(24))),
+                child: InkWell(
+                  onTap: controller.postAPost,
+                  child: Row(
+                    children: [
+                      const RoundedImage(
+                        size: 40,
+                        imageURL:
+                            'https://firebasestorage.googleapis.com/v0/b/chat-researchteam.appspot.com/o/robin_avt.jpg?alt=media&token=514c4220-a6a3-4ae7-9769-1fdf67a45907&_gl=1*1ax2pqs*_ga*MTIxNjEzMjQ1Mi4xNjgwNDQ0ODE5*_ga_CW55HF8NVT*MTY4NTgxMDM5OS40LjEuMTY4NTgxMDQzMS4wLjAuMA..',
+                      ),
+                      10.gapWidth,
+                      Text(
+                        'Check-in địa điểm của bạn!',
+                        style: context.textStyle.bodyMedium
+                            ?.copyWith(fontSize: 14, color: AppColors.grayText),
+                      ),
+                      const Spacer(),
+                      const Icon(
+                        FontAwesomeIcons.solidImage,
+                        color: AppColors.darkGreen,
+                      ),
+                      10.gapWidth
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else {
-            return PostItem(
-              userName: controller.listPost[index - 1]?.userName ?? '',
-              postDate: controller.listPost[index - 1]?.postDate ??
-                  DateFormat('MMMMd', 'vi').format(DateTime.now()),
-              location: controller.listPost[index - 1]?.location ??
-                  'Da Lat, Lam Dong',
-              imageUrl: controller.listPost[index - 1]?.imagePost ?? '',
-            );
-          }
-        },
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(
-          height: 10,
+              );
+            } else {
+              if (controller.state == null) {
+                return const PostShimmer();
+              } else {
+                return PostItem(
+                  userName: controller.listPost[index - 1]?.userName ?? '',
+                  postDate: controller.listPost[index - 1]?.postDate ??
+                      DateFormat('MMMMd', 'vi').format(DateTime.now()),
+                  location: controller.listPost[index - 1]?.location ??
+                      'Da Lat, Lam Dong',
+                  imageUrl: controller.listPost[index - 1]?.imagePost ?? '',
+                );
+              }
+            }
+          },
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+            height: 10,
+          ),
         ),
       );
     });
@@ -131,7 +140,8 @@ class PostItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            postDate,
+                            DateFormat('MMMMd', 'vi')
+                                .format(DateTime.parse(postDate)),
                             style: context.textStyle.bodyMedium?.copyWith(
                                 fontSize: 14, color: AppColors.grayText),
                           ),
@@ -168,11 +178,10 @@ class PostItem extends StatelessWidget {
               ],
             ),
           ),
-          Image.network(
-            imageUrl,
+          RoundedRectImage(
+            imageURL: imageUrl,
             width: double.infinity,
             height: 300,
-            fit: BoxFit.cover,
           )
         ],
       ),
@@ -180,5 +189,3 @@ class PostItem extends StatelessWidget {
   }
 }
 
-
-// DateFormat('MMMMd', 'vi').format(DateTime.now())

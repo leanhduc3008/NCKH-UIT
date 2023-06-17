@@ -7,8 +7,8 @@ import 'weather_view_model.dart';
 class WeatherBinder extends Bindings {
   @override
   void dependencies() {
-    Get.put<WeatherViewModel>(WeatherViewModel());
-    Get.put<CityListsController>(CityListsController());
-    Get.put<CityProvider>(CityProvider());
+    Get.lazyPut(() => WeatherViewModel(), fenix: true);
+    Get.lazyPut(() => CityListsController(), fenix: true);
+    Get.lazyPut(() => CityProvider(), fenix: true);
   }
 }

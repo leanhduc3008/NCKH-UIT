@@ -6,7 +6,7 @@ import '../../common/base/base_view_model.dart';
 import '../../common/constants/images.dart';
 import '../../data/model/destination.dart';
 import '../authentication/repository/destination_repository.dart';
-import '../chat/chat/chat_page.dart';
+import '../post/post_page_view_model.dart';
 
 class HomeViewModel extends BaseViewModel<List<Destination?>>
     with GetSingleTickerProviderStateMixin {
@@ -22,8 +22,15 @@ class HomeViewModel extends BaseViewModel<List<Destination?>>
   late int current = 0;
   final CarouselController controller = CarouselController();
 
-  Future<void> getToChat() async {
-    Get.toNamed(Get.currentRoute + ChatPage.routePath);
+  @override
+  void onReady() {
+    super.onReady();
+
+    tabController.addListener(() {
+      if (tabController.previousIndex != tabController.index) {
+        Get.find<PostPageViewModel>().onRefresh();
+      }
+    });
   }
 
   @override

@@ -34,25 +34,23 @@ class RoundedRectImage extends StatelessWidget {
       );
     }
 
-    return ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(Dimens.s3),
-        child: Container(
-          color: context.colorScheme.background,
-          child: CachedNetworkImage(
-            imageUrl: imageURL!,
-            width: width,
-            height: height,
-            fit: fit,
-            progressIndicatorBuilder: (_, __, DownloadProgress progress) =>
-                Center(
-                    child: CircularProgressIndicator(value: progress.progress)),
-            errorWidget: (_, __, ___) => ErrorImage(
-              width: width,
-              height: height,
-              borderRadius: borderRadius,
-            ),
-          ),
-        ));
+    return Container(
+      color: context.colorScheme.background,
+      child: CachedNetworkImage(
+        imageUrl: imageURL!,
+        width: width,
+        height: height,
+        fit: fit,
+        progressIndicatorBuilder: (_, __, DownloadProgress progress) =>
+            Center(
+                child: CircularProgressIndicator(value: progress.progress)),
+        errorWidget: (_, __, ___) => ErrorImage(
+          width: width,
+          height: height,
+          borderRadius: borderRadius,
+        ),
+      ),
+    );
   }
 
   static Widget square({

@@ -42,6 +42,7 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      // ignore: no_default_cases
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -69,6 +70,6 @@ class DefaultFirebaseOptions {
         '1075629088067-05ukuthhbt7t1mjitjdouipdglttnhbe.apps.googleusercontent.com',
     iosClientId:
         '1075629088067-7ve50grfprnabn4t72e8m44qg203v29d.apps.googleusercontent.com',
-    iosBundleId: 'com.imt.ticket',
+    iosBundleId: 'com.uit.tourism',
   );
 }

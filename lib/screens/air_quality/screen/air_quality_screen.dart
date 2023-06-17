@@ -6,8 +6,9 @@ import '../../../common/constants/images.dart';
 import '../../../common/constants/theme.dart';
 import '../../../common/extension/extenstion.dart';
 import '../../../router/route_menu.dart';
+import '../../../widgets/progress/shimmer_progress.dart';
 import '../widgets/air_card.dart';
-import '../widgets/predict_air_col.dart';
+import '../widgets/list_predict_air.dart';
 import 'air_quality_view_model.dart';
 
 class AirQualityPage extends GetView<AirQualityViewModel> {
@@ -20,59 +21,35 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      drawer: RouteMenu.drawer,
-      appBar: _buildAppBar(context),
-      body: _buildBody(context),
-    );
+    return SimpleBuilder(builder: (context) {
+      if (controller.status.isLoading) {
+        return const Scaffold(
+            backgroundColor: AppColors.white,
+            body: LogoProgress(
+              logo: AppImages.imgAirShimmer,
+            ));
+      }
+      return RefreshIndicator(
+        onRefresh: controller.onRefresh,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          drawer: RouteMenu.drawer,
+          appBar: _buildAppBar(context),
+          body: _buildBody(context),
+        ),
+      );
+    });
   }
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       toolbarHeight: 80,
       elevation: 0,
+      scrolledUnderElevation: 0,
+      shadowColor: AppColors.transparentColor,
       centerTitle: true,
       backgroundColor: AppColors.transparentColor,
       foregroundColor: AppColors.white,
-      title: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Hồ Chí Minh',
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              shadows: <Shadow>[
-                Shadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 4.0,
-                  color: AppColors.black.withOpacity(0.25),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            DateTime.now().toDateString,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w400,
-              shadows: <Shadow>[
-                Shadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 4.0,
-                  color: AppColors.black.withOpacity(0.25),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -89,23 +66,85 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
                 BlendMode.darken,
               ),
               child: Image.asset(
-                AppImages.imgHCM,
+                AppImages.imgAirBg,
                 fit: BoxFit.fill,
               ),
             ),
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 140, 16, 0),
+              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
               child: Column(
                 children: [
+                  Text(
+                    'Hồ Chí Minh',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          color: AppColors.black.withOpacity(0.25),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    DateTime.now().toDateString,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          color: AppColors.black.withOpacity(0.25),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    DateFormat('E').format(DateTime.now()),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.0,
+                          color: AppColors.black.withOpacity(0.25),
+                        ),
+                      ],
+                    ),
+                  ),
+                  10.gapHeight,
                   Image.asset(
-                    AppImages.imgQuiteUnhealthyAir,
+                    (controller.state!.AQI <= 50)
+                        ? AppImages.imgGoodAir
+                        : (controller.state!.AQI > 50) &&
+                                (controller.state!.AQI <= 100)
+                            ? AppImages.imgModerateAir
+                            : (controller.state!.AQI > 100) &&
+                                    (controller.state!.AQI <= 150)
+                                ? AppImages.imgQuiteUnhealthyAir
+                                : (controller.state!.AQI > 150) &&
+                                        (controller.state!.AQI <= 200)
+                                    ? AppImages.imgBadAir
+                                    : (controller.state!.AQI > 200) &&
+                                            (controller.state!.AQI <= 300)
+                                        ? AppImages.imgExtremelyUnhealthy
+                                        : AppImages.imgDangerous,
                     width: 90,
                     height: 90,
                   ),
                   Text(
-                    'AQI 125',
+                    'AQI ${controller.state?.AQI}',
                     style: TextStyle(
                       fontSize: 28,
                       color: Colors.white,
@@ -120,7 +159,21 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
                     ),
                   ),
                   Text(
-                    'Tình trạng xấu',
+                    (controller.state!.AQI <= 50)
+                        ? 'Tình trạng tốt'
+                        : (controller.state!.AQI > 50) &&
+                                (controller.state!.AQI <= 100)
+                            ? 'Tình trạng trung bình'
+                            : (controller.state!.AQI > 100) &&
+                                    (controller.state!.AQI <= 150)
+                                ? 'Tình trạng kém'
+                                : (controller.state!.AQI > 150) &&
+                                        (controller.state!.AQI <= 200)
+                                    ? 'Tình trạng xấu'
+                                    : (controller.state!.AQI > 200) &&
+                                            (controller.state!.AQI <= 300)
+                                        ? 'Tình trạng rất xấu'
+                                        : 'Tình trạng nguy hiểm',
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -137,75 +190,54 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
                   20.gapHeight,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      AirCard(title: 'PM2.5', aqi: 65.6),
+                    children: [
+                      AirCard(
+                          title: 'PM2.5', aqi: controller.state?.pm2_5 ?? 0),
                       AirCard(
                         title: 'PM10',
-                        aqi: 79.2,
+                        aqi: controller.state?.pm10 ?? 0,
                       ),
                       AirCard(
                         title: 'O3',
-                        aqi: 0,
+                        aqi: controller.state?.o3 ?? 0,
                       )
                     ],
                   ),
                   20.gapHeight,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       AirCard(
                         title: 'SO2',
-                        aqi: 42.9,
+                        aqi: controller.state?.so2 ?? 0,
                       ),
                       AirCard(
                         title: 'NO2',
-                        aqi: 34.3,
+                        aqi: controller.state?.no2 ?? 0,
                       ),
                       AirCard(
                         title: 'CO',
-                        aqi: 1762.4,
+                        aqi: controller.state?.co ?? 0,
                       )
                     ],
                   ),
                   30.gapHeight,
                   Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: AppColors.blackBlur.withOpacity(0.8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.black.withOpacity(0.02),
-                            offset: const Offset(0, 4),
-                            blurRadius: 4,
-                          ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        PredictAirCol(
-                          nameOfDay: 'Thứ 2',
-                          aqi: 51,
-                        ),
-                        PredictAirCol(
-                          nameOfDay: 'Thứ 3',
-                          aqi: 130,
-                        ),
-                        PredictAirCol(
-                          nameOfDay: 'Thứ 4',
-                          aqi: 49,
-                        ),
-                        PredictAirCol(
-                          nameOfDay: 'Thứ 5',
-                          aqi: 100,
-                        ),
-                        PredictAirCol(
-                          nameOfDay: 'Thứ 6',
-                          aqi: 56,
-                        ),
-                      ],
-                    ),
-                  )
+                      height: 225,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24)),
+                          color: const Color(0xFF63C9C9),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.black.withOpacity(0.02),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                            ),
+                          ]),
+                      child: const ListPredictAir())
                 ],
               ),
             ),

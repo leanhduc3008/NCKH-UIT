@@ -1,4 +1,4 @@
-package com.imt.ticket
+package com.uit.tourism
 
 import io.flutter.embedding.android.FlutterActivity
 

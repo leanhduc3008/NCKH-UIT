@@ -102,16 +102,16 @@ class HomePage extends GetView<HomeViewModel> {
           ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 0, 70),
-        child: FloatingActionButton(
-            backgroundColor: AppColors.transparentColor,
-            onPressed: controller.getToChat,
-            child: Image.asset(
-              AppImages.iconChat,
-              fit: BoxFit.fill,
-            )),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.fromLTRB(10, 0, 0, 70),
+      //   child: FloatingActionButton(
+      //       backgroundColor: AppColors.transparentColor,
+      //       onPressed: controller.getToChat,
+      //       child: Image.asset(
+      //         AppImages.iconChat,
+      //         fit: BoxFit.fill,
+      //       )),
+      // ),
     );
   }
 
