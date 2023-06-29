@@ -9,11 +9,12 @@ class DestinationController extends BaseViewModel<List<Destination>> {
   final DestinationProvider _provider = Get.find<DestinationProvider>();
 
   @override
-  Future<List<Destination>?> initialData() {
+  Future<List<Destination>?> initialData() async {
     return _provider.getListDestination();
   }
 
   void getToDetailPage(Destination destination) {
-    Get.toNamed(Get.currentRoute + DetailDestinationPage.routePath, arguments: destination);
+    Get.toNamed(Get.currentRoute + DetailDestinationPage.routePath,
+        arguments: destination);
   }
 }

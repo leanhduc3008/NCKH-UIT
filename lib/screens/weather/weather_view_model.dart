@@ -25,7 +25,7 @@ class WeatherViewModel extends BaseViewModel<Weather> {
     return _weatherRepo.getCiyWeather(cityName);
   }
 
-  Future<void> goToCityListPage() async {
-    name = await Get.to(() => const CityLists()) ?? '';
+  void goToCityListPage() {
+    Get.toNamed(Get.currentRoute + CityLists.routePath);
   }
 }

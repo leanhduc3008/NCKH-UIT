@@ -34,16 +34,15 @@ class RoundedRectImage extends StatelessWidget {
       );
     }
 
-    return Container(
-      color: context.colorScheme.background,
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(Dimens.s3),
       child: CachedNetworkImage(
         imageUrl: imageURL!,
         width: width,
         height: height,
         fit: fit,
         progressIndicatorBuilder: (_, __, DownloadProgress progress) =>
-            Center(
-                child: CircularProgressIndicator(value: progress.progress)),
+            Center(child: CircularProgressIndicator(value: progress.progress)),
         errorWidget: (_, __, ___) => ErrorImage(
           width: width,
           height: height,

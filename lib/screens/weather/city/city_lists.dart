@@ -10,31 +10,7 @@ import '../model/weather.dart';
 class CityLists extends GetView<CityListsController> {
   const CityLists({super.key});
 
-  // int i = 0;
-  // List<String> pool = [
-  //   'Ho Chi Minh City',
-  //   'Ha Noi',
-  //   'Da Nang',
-  //   'Da Lat',
-  //   'Vung Tau',
-  //   'Nha Trang',
-  //   'Binh Duong'
-  // ];
-
-  // Future<void> _loadAddedCity() async {
-  //   if (pool == []) {
-  //     return;
-  //   }
-  //   for (final item in _cityListsController.cityLists) {
-  //     if (pool[i] == item) {
-  //       pool.removeAt(i);
-  //       await _loadAddedCity();
-  //     }
-  //   }
-  //   _cityListsController.addCity(pool[i]);
-  //   pool.removeAt(i);
-  //   await _cityListsController.loadCityLists();
-  // }
+  static const String routePath = '/CityListPage';
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +44,14 @@ class CityLists extends GetView<CityListsController> {
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 25, color: Colors.white),
         ),
+      ),
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: AppColors.white,
+          size: 20,
+        ),
+        onPressed: Get.back,
       ),
     );
   }

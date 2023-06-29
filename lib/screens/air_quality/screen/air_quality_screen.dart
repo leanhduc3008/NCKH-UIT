@@ -10,6 +10,7 @@ import '../../../widgets/progress/shimmer_progress.dart';
 import '../widgets/air_card.dart';
 import '../widgets/list_predict_air.dart';
 import 'air_quality_view_model.dart';
+import 'select_city/select_city_screen.dart';
 
 class AirQualityPage extends GetView<AirQualityViewModel> {
   const AirQualityPage({super.key});
@@ -50,10 +51,24 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
       centerTitle: true,
       backgroundColor: AppColors.transparentColor,
       foregroundColor: AppColors.white,
+      actions: <Widget>[
+        IconButton(
+            icon: const Icon(
+              Icons.apps,
+              size: 30,
+            ),
+            onPressed: () async {
+              controller.cityName = await Get.toNamed(
+                  Get.currentRoute + SelectCityScreen.routePath);
+            }),
+      ],
     );
   }
 
   Widget _buildBody(BuildContext context) {
+    if (controller.cityName != null) {
+    controller.onRefresh();
+    }
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -77,7 +92,7 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
               child: Column(
                 children: [
                   Text(
-                    'Hồ Chí Minh',
+                    cityName,
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -223,8 +238,9 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
                   ),
                   30.gapHeight,
                   Container(
-                      height: 225,
-                      padding: const EdgeInsets.all(16),
+                      height: 240,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 25),
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(24),
@@ -237,7 +253,9 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
                               blurRadius: 4,
                             ),
                           ]),
-                      child: const ListPredictAir())
+                      child: ListPredictAir(
+                        cityName: controller.cityName ?? 'HoChiMinh',
+                      ))
                 ],
               ),
             ),
@@ -246,5 +264,31 @@ class AirQualityPage extends GetView<AirQualityViewModel> {
       ),
     );
   }
+
+  String get cityName {
+    switch (controller.cityName) {
+      case 'HoChiMinh':
+        return 'Hồ Chí Minh';
+      case 'HaNoi':
+        return 'Hà Nội';
+      case 'DaNang':
+        return 'Đà Nẵng';
+      case 'VungTau':
+        return 'Vũng Tàu';
+      case 'SaPa':
+        return 'Sa Pa';
+      case 'ThuaThienHue':
+        return 'Thừa Thiên Huế';
+      case 'NhaTrang':
+        return 'Nha Trang';
+      case 'PhuQuoc':
+        return 'Phú Quốc';
+      case 'HaLong':
+        return 'Hạ Long';
+      case 'DaLat':
+        return 'Đà Lạt';
+      default:
+        return 'Hồ Chí Minh';
+    }
+  }
 }
-// DateFormat(DateFormat.ABBR_WEEKDAY).format(date);

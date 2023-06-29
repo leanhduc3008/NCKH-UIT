@@ -36,6 +36,23 @@ class AppImages {
   // Detail Destination
   static const String imgStarReview = '$imagesPath/star_review.png';
 
+  // List Destination
+  static const String imgSun = '$imagesPath/img_sun.png';
+  static const String imgNightRain = '$imagesPath/img_rain_night.png';
+  static const String imgNight = '$imagesPath/img_night.png';
+  static const String imgRain = '$imagesPath/img_rain.png';
+  static const String imgCloud = '$imagesPath/img_cloud.png';
+  static const String bgDaLat = '$imagesPath/bg_DaLat.png';
+  static const String bgHCM = '$imagesPath/bg_HCM.png';
+  static const String bgVungTau = '$imagesPath/bg_VungTau.png';
+  static const String bgDaNang = '$imagesPath/bg_DaNang.png';
+  static const String bgContainer = '$imagesPath/bg_container.png';
+  static const String icAqi = '$imagesPath/ic_aqi.png';
+  static const String icCloudSun = '$imagesPath/ic_cloud_sun.png';
+  static const String icRain = '$imagesPath/ic_rain.png';
+  static const String icCloud = '$imagesPath/ic_cloud.png';
+  static const String icSun = '$imagesPath/ic_sun.png';
+
   // Air Quality
   static const String imgHCM = '$imagesPath/HCM.jpg';
   static const String imgGoodAir = '$imagesPath/good_air.png';

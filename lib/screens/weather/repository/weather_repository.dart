@@ -11,6 +11,7 @@ class WeatherRepository {
   }
 
   Future<List<Weather>> getListCityWeather(List<String> cityNames) async {
+    listResult.clear();
     for (final name in cityNames) {
       final weather = await getCiyWeather(name);
       listResult.add(weather);

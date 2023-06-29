@@ -11,6 +11,8 @@ import '../../common/extension/extenstion.dart';
 import '../../router/route_menu.dart';
 import '../../widgets/button/elevated_button.dart';
 import '../../widgets/image/rounded_rect_image.dart';
+import '../detail_destination/screen/detail_destination_page.dart';
+import '../list_destination/list_city_and_Province.dart';
 import '../post/post_page.dart';
 import 'home_view_model.dart';
 import 'widget/destination_card.dart';
@@ -102,16 +104,6 @@ class HomePage extends GetView<HomeViewModel> {
           ),
         ],
       ),
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.fromLTRB(10, 0, 0, 70),
-      //   child: FloatingActionButton(
-      //       backgroundColor: AppColors.transparentColor,
-      //       onPressed: controller.getToChat,
-      //       child: Image.asset(
-      //         AppImages.iconChat,
-      //         fit: BoxFit.fill,
-      //       )),
-      // ),
     );
   }
 
@@ -176,119 +168,140 @@ class HomePage extends GetView<HomeViewModel> {
               if (controller.status.isLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
-              return CarouselSlider(
-                carouselController: controller.controller,
-                options: CarouselOptions(
-                  height: 500,
-                  initialPage: controller.current,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  aspectRatio: width / height,
-                  onPageChanged: (index, reason) {
-                    controller.current = index;
-                  },
-                ),
-                items: controller.listDestination
-                    .map<Widget>((listDestination) => Stack(children: [
-                          SizedBox(
-                            height: 500,
-                            width: double.infinity,
-                            child: RoundedRectImage(
-                              imageURL: controller
-                                      .listDestination[controller.current]
-                                      ?.imageUrl ??
-                                  '',
-                              borderRadius: 12.borderRadius,
-                            ),
-                          ),
-                          Positioned(
-                              left: 0,
-                              bottom: 0,
-                              right: 0,
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: AppColors.black.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.black.withOpacity(0.3),
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 15,
-                                    ),
-                                  ],
+              return Obx(() => CarouselSlider(
+                    carouselController: controller.controller,
+                    options: CarouselOptions(
+                      height: 500,
+                      initialPage: controller.current.value,
+                      autoPlay: true,
+                      viewportFraction: 1,
+                      aspectRatio: width / height,
+                      onPageChanged: (index, reason) {
+                        controller.current.value = index;
+                      },
+                    ),
+                    items: controller.listDestination
+                        .map<Widget>((listDestination) => Stack(children: [
+                              SizedBox(
+                                height: 500,
+                                width: double.infinity,
+                                child: RoundedRectImage(
+                                  imageURL: controller
+                                          .listDestination[
+                                              controller.current.value]
+                                          ?.imageUrl ??
+                                      '',
+                                  borderRadius: 12.borderRadius,
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Đà Lạt',
-                                      style: context.textStyle.bodyMedium
-                                          ?.copyWith(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.white),
+                              ),
+                              Positioned(
+                                  left: 0,
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.black.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              AppColors.black.withOpacity(0.3),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 15,
+                                        ),
+                                      ],
                                     ),
-                                    5.gapHeight,
-                                    Row(children: [
-                                      const Icon(
-                                        Icons.location_on_rounded,
-                                        color: AppColors.darkGreen,
-                                      ),
-                                      5.gapWidth,
-                                      Text(
-                                        'Lâm Đồng',
-                                        style: context.textStyle.titleMedium
-                                            ?.copyWith(
-                                                color: AppColors.white,
-                                                fontSize: 16),
-                                      ),
-                                    ]),
-                                    10.gapHeight,
-                                    AppElevatedButton(
-                                      expandedWith: false,
-                                      onPressed: () {},
-                                      backgroundColor: AppColors.darkGreen,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 30),
-                                        child: Text(
-                                          'Xem chi tiết',
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          controller
+                                                  .listDestination[
+                                                      controller.current.value]
+                                                  ?.name ??
+                                              '',
                                           style: context.textStyle.bodyMedium
                                               ?.copyWith(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w600,
                                                   color: AppColors.white),
                                         ),
-                                      ),
+                                        5.gapHeight,
+                                        Row(children: [
+                                          const Icon(
+                                            Icons.location_on_rounded,
+                                            color: AppColors.darkGreen,
+                                          ),
+                                          5.gapWidth,
+                                          Text(
+                                            controller
+                                                    .listDestination[controller
+                                                        .current.value]
+                                                    ?.location ??
+                                                '',
+                                            style: context.textStyle.titleMedium
+                                                ?.copyWith(
+                                                    color: AppColors.white,
+                                                    fontSize: 16),
+                                          ),
+                                        ]),
+                                        10.gapHeight,
+                                        AppElevatedButton(
+                                          expandedWith: false,
+                                          onPressed: () => Get.toNamed(
+                                              Get.currentRoute +
+                                                  DetailDestinationPage
+                                                      .routePath,
+                                              arguments: controller
+                                                      .listDestination[
+                                                  controller.current.value]),
+                                          backgroundColor: AppColors.darkGreen,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 30),
+                                            child: Text(
+                                              'Xem chi tiết',
+                                              style: context
+                                                  .textStyle.bodyMedium
+                                                  ?.copyWith(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: AppColors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ))
-                        ]))
-                    .toList(),
-              );
+                                  ))
+                            ]))
+                        .toList(),
+                  ));
             }),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: controller.banner.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => controller.controller.animateToPage(entry.key),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.fastOutSlowIn,
-                    width: controller.current == entry.key ? 24 : 6,
-                    height: 6,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 4.0),
-                    decoration: BoxDecoration(
-                        borderRadius: 20.borderRadius,
-                        color: AppColors.darkGreen.withOpacity(
-                            controller.current == entry.key ? 1 : .5)),
-                  ),
-                );
-              }).toList(),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: controller.banner.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => controller.controller.animateToPage(entry.key),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.fastOutSlowIn,
+                      width: controller.current.value == entry.key ? 24 : 6,
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                          borderRadius: 20.borderRadius,
+                          color: AppColors.darkGreen.withOpacity(
+                              controller.current.value == entry.key ? 1 : .5)),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
             20.gapHeight,
             Row(
@@ -299,12 +312,18 @@ class HomePage extends GetView<HomeViewModel> {
                       ?.copyWith(color: AppColors.dark, fontSize: 18),
                 ),
                 const Spacer(),
-                Text(
-                  'Xem tất cả',
-                  style: context.textStyle.bodyMedium?.copyWith(
-                      color: AppColors.darkGreen,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                        Get.currentRoute + ListCityAndProvince.routePath);
+                  },
+                  child: Text(
+                    'Xem tất cả',
+                    style: context.textStyle.bodyMedium?.copyWith(
+                        color: AppColors.darkGreen,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
               ],
             ),

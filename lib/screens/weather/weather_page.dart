@@ -109,7 +109,7 @@ class _WeatherPageState extends State<WeatherPage> {
         child: Column(
           children: [
             Image.asset(
-              AppImages.imageWeather,
+              AppImages.imgCloud,
               width: 140,
               height: 110,
             ),

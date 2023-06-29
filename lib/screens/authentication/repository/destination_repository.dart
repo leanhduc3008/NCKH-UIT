@@ -17,4 +17,15 @@ class DestinationRepository extends GetxController {
         .get();
     return datas.docs.map((doc) => doc.data()).toList();
   }
+
+  Future<List<Destination>> getListDestinationByCity(String cityName) async {
+    final datas = await destinations
+        .withConverter<Destination>(
+            fromFirestore: (snapshot, _) =>
+                Destination.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson())
+        .where('city', isEqualTo: cityName)
+        .get();
+    return datas.docs.map((doc) => doc.data()).toList();
+  }
 }
