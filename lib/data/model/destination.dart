@@ -8,6 +8,8 @@ class Destination with _$Destination {
   @JsonSerializable(explicitToJson: true)
   const factory Destination({
     @Default('') String name,
+    @Default('') String city,
+    @Default('') String weather,
     @Default('') String imageUrl,
     @Default('') String location,
     @Default(0) double latitude,

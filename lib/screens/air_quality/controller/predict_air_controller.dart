@@ -9,39 +9,44 @@ class PredictAirController extends BaseViewModel<List<PredictAirQuality>> {
   final AirQualityRepository _repo = Get.find<AirQualityRepository>();
   String cityName = 'HoChiMinh';
   RxBool isDeepQLearning = true.obs;
-  RxBool isArima = false.obs;
+  RxBool isLSTM = false.obs;
   RxBool isRNN = false.obs;
+  RxBool isGRU = false.obs;
   RxBool isLoading = false.obs;
   RxList<PredictAirQuality> lstPredict = RxList();
 
   @override
   Future<List<PredictAirQuality>?> initialData() async {
-    // print(DateFormat('E')
-    //     .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse('2019-07-19 8:40:23')));
-    // print(DateFormat('H').format(DateTime.now()));
     lstPredict.value = await _repo
-        .getDeepQLPredictAqiHourly(DateFormat('H').format(DateTime.now()));
+        .getDeepQLPredictAqiHourly(DateFormat('H').format(DateTime.now()), cityName);
     return lstPredict;
   }
 
-  Future<void> getDeepQLPredict() async {
+  Future<void> getDeepQLPredict(String cityName) async {
     isLoading.value = true;
     lstPredict.value = await _repo
-        .getDeepQLPredictAqiHourly(DateFormat('H').format(DateTime.now()));
+        .getDeepQLPredictAqiHourly(DateFormat('H').format(DateTime.now()), cityName);
     isLoading.value = false;
   }
 
-  Future<void> getArimaPredict() async {
+  Future<void> getLSTMPredict(String cityName) async {
     isLoading.value = true;
     lstPredict.value = await _repo
-        .getArimaPredictAqiHourly(DateFormat('H').format(DateTime.now()));
+        .getLSTMPredictAqiHourly(DateFormat('H').format(DateTime.now()), cityName);
     isLoading.value = false;
   }
 
-  Future<void> getRNNPredict() async {
+  Future<void> getRNNPredict(String cityName) async {
     isLoading.value = true;
     lstPredict.value = await _repo
-        .getRNNPredictAqiHourly(DateFormat('H').format(DateTime.now()));
+        .getRNNPredictAqiHourly(DateFormat('H').format(DateTime.now()), cityName);
+    isLoading.value = false;
+  }
+
+   Future<void> getGRUPredict(String cityName) async {
+    isLoading.value = true;
+    lstPredict.value = await _repo
+        .getGRUPredictAqiHourly(DateFormat('H').format(DateTime.now()), cityName);
     isLoading.value = false;
   }
 }

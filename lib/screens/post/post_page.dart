@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../common/constants/theme.dart';
 import '../../common/extension/extenstion.dart';
+import '../../widgets/image/error_image.dart';
 import '../../widgets/image/rounded_image.dart';
 import '../../widgets/image/rounded_rect_image.dart';
 import 'post_page_view_model.dart';
@@ -171,21 +173,28 @@ class PostItem extends StatelessWidget {
                 ),
                 10.gapHeight,
                 Text(
-                  'Tôi vừa check-in tại Đà Lạt.',
+                  'Tôi vừa check-in tại $location.',
                   style: context.textStyle.bodyMedium
                       ?.copyWith(fontSize: 14, color: AppColors.black),
                 ),
               ],
             ),
           ),
-          RoundedRectImage(
-            imageURL: imageUrl,
+          CachedNetworkImage(
+            imageUrl: imageUrl,
             width: double.infinity,
-            height: 300,
-          )
+            height: 400,
+            fit: BoxFit.fitHeight,
+            progressIndicatorBuilder: (_, __, DownloadProgress progress) =>
+                Center(
+                    child: CircularProgressIndicator(value: progress.progress)),
+            errorWidget: (_, __, ___) => const ErrorImage(
+              width: 30,
+              height: 30,
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

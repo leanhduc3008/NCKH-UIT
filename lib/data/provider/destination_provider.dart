@@ -4,45 +4,55 @@ class DestinationProvider {
   Future<List<Destination>> getListDestination() async {
     final listDestination = [
       const Destination(
-          name: 'Lang Biang',
-          imageUrl: 'https://imgur.com/YRggsQ1.png',
-          location: 'Đà Lạt',
-          latitude: 12.046737321104,
-          longtitude: 108.44021157095693,
-          pointReview: '4.6',
-          favouriteNumber: 200,
-          detail:
-              'Núi Langbiang là một cụm núi cao nằm cách thành phố Đà Lạt 12 km thuộc địa phận huyện Lạc Dương. Hai núi cao nhất tại đây là núi Bà cao 2.167 m và núi Ông cao 2.124 m so với mặt nước biển. Ngoài ra trong khu du lịch còn có ngọn đồi Ra-đa cao 1.929 m, ngọn đồi này cũng là một địa điểm quen thuộc đối với du khách. Nhìn từ trung tâm thành phố Đà Lạt có thể thấy núi Bà nằm bên trái, núi Ông nằm bên phải. Langbiang được ví như "nóc nhà" của Đà Lạt và là điểm tham quan du lịch hấp dẫn, nổi tiếng ở thành phố này.'),
-      const Destination(
-          name: 'Đồi Con Heo',
-          imageUrl: 'https://imgur.com/9sNSlfh.png',
-          location: 'Vũng Tàu',
-          latitude: 10.326430942508805,
-          longtitude: 107.08452118928813,
-          pointReview: '5',
-          favouriteNumber: 1100,
-          detail:
-              'Đồi Con Heo với nét hoang sơ hòa quyện cùng chút bí ẩn của con đường đầy sỏi đá, chút hoang dại mà lãng mạn của đồi cỏ khô và sự bao la, bát ngát của biển trời,… tất cả tạo nên sự hấp dẫn đặc biệt thu hút đông đảo khách du lịch cũng như dân bản địa lui tới.\nĐồi con heo cũng nằm ngay bãi biển Thuỳ Vân và một số điểm tham quan khác, vì vậy bạn có thể thuê những khách sạn gần đây để tiện cho việc vui chơi và khám phá Vũng Tàu nhất nhé.'),
-      const Destination(
-          name: 'Mũi Nghinh Phong',
-          imageUrl: 'https://imgur.com/qb8qx0x.png',
-          location: 'Vũng Tàu',
-          latitude: 10.322188530106466,
-          longtitude: 107.08355880164085,
-          pointReview: '4.5',
-          favouriteNumber: 300,
-          detail:
-              'Mũi Nghinh Phong là mũi đất vươn dài nhất ở phía Nam của bán đảo Vũng Tàu, đây là nơi đón gió suốt bốn mùa, chả vậy mà mũi có tên là Nghinh Phong. Mũi tạo ra hai bãi tắm là bãi Vọng Nguyệt và bãi Hương Phong, hai vịnh lớn ở hướng Tây và hướng Đông.\nDu khách tìm đến mũi Nghinh Phong như một chốn để nghỉ ngơi, thư giãn sau những ngày làm việc vất vả. Nước biển ở đây trong và sạch, không khí trong lành dễ chịu.'),
-      const Destination(
-          name: 'Vinpearl Land Nha Trang',
-          imageUrl: 'https://imgur.com/8y54Er1.png',
-          location: 'Nha Trang',
-          latitude: 12.214012257721151,
-          longtitude: 109.24114111752178,
+          name: 'Suối Tiên',
+          imageUrl: 'https://imgur.com/AJ84CxW.png',
+          location: 'Thủ Đức, HCM',
+          latitude: 10.870999457312625,
+          longtitude: 106.80223043573271,
           pointReview: '4.9',
-          favouriteNumber: 700,
+          favouriteNumber: 999,
           detail:
-              'Du lịch Nha Trang thì tất nhiên không thể không kể đến VinWonders (Vinpearl Land) – Công viên vui chơi giải trí bậc nhất thành phố biển.\nNằm trên đảo Hòn Tre, cụ thể là ở địa chỉ 98B/13 Trần Phú, Lộc Thọ, Vinwonders Nha Trang là địa điểm nổi tiếng ở Nha Trang bao gồm nhiều khu vực vui chơi dành cho mọi lứa tuổi như công viên nước khu vui chơi ngoài trời, khu vui chơi trong nhà, thủy cung, khu ẩm thực, khu mua sắm,… thỏa sức khám phá của tất cả du khách.\nVinwonders Nha Trang được sánh ngang tầm với các công viên giải trí trong khu vực và thế giới. Một điều thú vị khi đến Vinwonders là bạn có thể trải nghiệm khu nghỉ dưỡng Vinpearl Nha Trang đẳng cấp 5 sao theo tiêu chuẩn quốc tế.')
+              'Khu Du lịch Văn hóa Suối Tiên là một công viên liên hợp vui chơi giải trí kết hợp truyền thống các yếu tố văn hóa - lịch sử - tâm linh. Tọa lạc tại 120 Xa lộ Hà Nội, Phường Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh. Kiểu cách kiến trúc và các thể loại vui chơi được gắn lồng vào các hình ảnh lịch sử và truyền thuyết Việt Nam như Lạc Long Quân - Âu Cơ, Vua Hùng, Sơn Tinh Thủy Tinh, mười chín tầng địa ngục, tứ linh hội tụ Long - Lân - Quy - Phụng, công viên giải trí dưới nước, đặc biệt là biển Tiên Đồng - biển nhân tạo đầu tiên ở Việt Nam.'),
+      const Destination(
+          name: 'Bưu Điện Thành Phố',
+          imageUrl: 'https://imgur.com/p714EoJ.png',
+          location: 'Quận 1, HCM',
+          latitude: 10.780276146929756,
+          longtitude: 106.70017869610362,
+          pointReview: '4.8',
+          favouriteNumber: 453,
+          detail:
+              'Bưu điện Sài Gòn là một trong những công trình kiến trúc tiêu biểu tại Thành phố Hồ Chí Minh, tọa lạc tại số 2, Công trường Công xã Paris, Quận 1. Đây là tòa nhà được người Pháp xây dựng trong khoảng năm 1886–1891 với phong cách chiết trung theo đồ án thiết kế của kiến trúc sư Marie-Alfred Foulhoux. Đây là công trình kiến trúc mang phong cách phương Tây kết hợp với nét trang trí phương Đông.'),
+      const Destination(
+          name: 'Bảo tàng Lịch sử Việt Nam',
+          imageUrl: 'https://imgur.com/GH5kMzP.png',
+          location: 'Quận 1, HCM',
+          latitude: 10.788637430933413,
+          longtitude: 106.70486634603687,
+          pointReview: '4.3',
+          favouriteNumber: 367,
+          detail:
+              'Bảo tàng Lịch sử Thành phố Hồ Chí Minh tọa lạc tại số 2 đường Nguyễn Bỉnh Khiêm, phường Bến Nghé, Quận 1, trong khuôn viên Thảo Cầm Viên Sài Gòn. Đây là nơi bảo tồn và trưng bày hàng chục ngàn hiện vật quý được sưu tầm trong và ngoài nước Việt Nam.'),
+      const Destination(
+          name: 'Chợ Bến Thành',
+          imageUrl: 'https://imgur.com/krG4KgE.png',
+          location: 'Quận 1, HCM',
+          latitude: 10.7725168,
+          longtitude: 106.6980208,
+          pointReview: '4.5',
+          favouriteNumber: 376,
+          detail:
+              'Chợ Bến Thành là một ngôi chợ nằm tại quận 1, Thành phố Hồ Chí Minh. Chợ được khởi công xây dựng từ năm 1912, hình ảnh đồng hồ ở cửa nam của ngôi chợ này được xem là biểu tượng không chính thức của Thành phố Hồ Chí Minh.'),
+      const Destination(
+          name: 'Dinh Độc Lập',
+          imageUrl: 'https://imgur.com/1oeaOgG.png',
+          location: 'Quận 1, HCM',
+          latitude: 10.7769942,
+          longtitude: 106.6953021,
+          pointReview: '4.9',
+          favouriteNumber: 699,
+          detail:
+              'Dinh Độc Lập là một tòa dinh thự tại Thành phố Hồ Chí Minh, từng là nơi ở và làm việc của Tổng thống Việt Nam Cộng hòa trước Sự kiện 30 tháng 4 năm 1975. Hiện nay, dinh đã được Chính phủ Việt Nam xếp hạng là di tích quốc gia đặc biệt.'),
     ];
     return listDestination;
   }

@@ -9,128 +9,177 @@ import '../../../widgets/progress/shimmer_progress.dart';
 import '../controller/predict_air_controller.dart';
 
 class ListPredictAir extends GetView<PredictAirController> {
-  const ListPredictAir({super.key});
+  const ListPredictAir({super.key, required this.cityName});
+
+  final String cityName;
 
   @override
   Widget build(BuildContext context) {
     return controller.builder((state) {
       return Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Obx(() => InkWell(
-                    onTap: () {
-                      controller.isDeepQLearning.value = true;
-                      controller.isArima.value = false;
-                      controller.isRNN.value = false;
-                      controller.getDeepQLPredict();
-                    },
-                    child: Container(
-                      width: 100,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: controller.isDeepQLearning.value
-                              ? const Color(0xFF43CCCC)
-                              : AppColors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(22)),
-                          border: Border.all(
-                              color: AppColors.white.withOpacity(0.2)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.black.withOpacity(0.25),
-                              offset: const Offset(5, 4),
-                              blurRadius: 10,
-                            ),
-                          ]),
-                      child: Text(
-                        'Deep Q-L',
-                        textAlign: TextAlign.center,
-                        style: context.textStyle.bodyMedium?.copyWith(
+          SingleChildScrollView(
+            clipBehavior: Clip.none,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Obx(() => InkWell(
+                      onTap: () {
+                        controller.isDeepQLearning.value = true;
+                        controller.isLSTM.value = false;
+                        controller.isRNN.value = false;
+                        controller.isGRU.value = false;
+                        controller.getDeepQLPredict(cityName);
+                      },
+                      child: Container(
+                        width: 100,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                             color: controller.isDeepQLearning.value
-                                ? AppColors.white
-                                : const Color(0xFF43CCCC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                                ? const Color(0xFF43CCCC)
+                                : AppColors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(22)),
+                            border: Border.all(
+                                color: AppColors.white.withOpacity(0.2)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.25),
+                                offset: const Offset(5, 4),
+                                blurRadius: 10,
+                              ),
+                            ]),
+                        child: Text(
+                          'Deep Q-L',
+                          textAlign: TextAlign.center,
+                          style: context.textStyle.bodyMedium?.copyWith(
+                              color: controller.isDeepQLearning.value
+                                  ? AppColors.white
+                                  : const Color(0xFF43CCCC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  )),
-              Obx(() => InkWell(
-                    onTap: () {
-                      controller.isDeepQLearning.value = false;
-                      controller.isArima.value = true;
-                      controller.isRNN.value = false;
-                      controller.getArimaPredict();
-                    },
-                    child: Container(
-                      width: 100,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: controller.isArima.value
-                              ? const Color(0xFF43CCCC)
-                              : AppColors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(22)),
-                          border: Border.all(
-                              color: AppColors.white.withOpacity(0.2)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.black.withOpacity(0.25),
-                              offset: const Offset(5, 4),
-                              blurRadius: 10,
-                            ),
-                          ]),
-                      child: Text(
-                        'ARIMA',
-                        textAlign: TextAlign.center,
-                        style: context.textStyle.bodyMedium?.copyWith(
-                            color: controller.isArima.value
-                                ? AppColors.white
-                                : const Color(0xFF43CCCC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                    )),
+                10.gapWidth,
+                Obx(() => InkWell(
+                      onTap: () {
+                        controller.isDeepQLearning.value = false;
+                        controller.isLSTM.value = true;
+                        controller.isRNN.value = false;
+                        controller.isGRU.value = false;
+                        controller.getLSTMPredict(cityName);
+                      },
+                      child: Container(
+                        width: 100,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: controller.isLSTM.value
+                                ? const Color(0xFF43CCCC)
+                                : AppColors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(22)),
+                            border: Border.all(
+                                color: AppColors.white.withOpacity(0.2)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.25),
+                                offset: const Offset(5, 4),
+                                blurRadius: 10,
+                              ),
+                            ]),
+                        child: Text(
+                          'LSTM',
+                          textAlign: TextAlign.center,
+                          style: context.textStyle.bodyMedium?.copyWith(
+                              color: controller.isLSTM.value
+                                  ? AppColors.white
+                                  : const Color(0xFF43CCCC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  )),
-              Obx(() => InkWell(
-                    onTap: () {
-                      controller.isDeepQLearning.value = false;
-                      controller.isArima.value = false;
-                      controller.isRNN.value = true;
-                      controller.getRNNPredict();
-                    },
-                    child: Container(
-                      width: 100,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: controller.isRNN.value
-                              ? const Color(0xFF43CCCC)
-                              : AppColors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(22)),
-                          border: Border.all(
-                              color: AppColors.white.withOpacity(0.2)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.black.withOpacity(0.25),
-                              offset: const Offset(5, 4),
-                              blurRadius: 10,
-                            ),
-                          ]),
-                      child: Text(
-                        'RNN',
-                        textAlign: TextAlign.center,
-                        style: context.textStyle.bodyMedium?.copyWith(
+                    )),
+                10.gapWidth,
+                Obx(() => InkWell(
+                      onTap: () {
+                        controller.isDeepQLearning.value = false;
+                        controller.isLSTM.value = false;
+                        controller.isRNN.value = true;
+                        controller.isGRU.value = false;
+                        controller.getRNNPredict(cityName);
+                      },
+                      child: Container(
+                        width: 100,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                             color: controller.isRNN.value
-                                ? AppColors.white
-                                : const Color(0xFF43CCCC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                                ? const Color(0xFF43CCCC)
+                                : AppColors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(22)),
+                            border: Border.all(
+                                color: AppColors.white.withOpacity(0.2)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.25),
+                                offset: const Offset(5, 4),
+                                blurRadius: 10,
+                              ),
+                            ]),
+                        child: Text(
+                          'RNN',
+                          textAlign: TextAlign.center,
+                          style: context.textStyle.bodyMedium?.copyWith(
+                              color: controller.isRNN.value
+                                  ? AppColors.white
+                                  : const Color(0xFF43CCCC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  )),
-            ],
+                    )),
+                10.gapWidth,
+                Obx(() => InkWell(
+                      onTap: () {
+                        controller.isDeepQLearning.value = false;
+                        controller.isLSTM.value = false;
+                        controller.isRNN.value = false;
+                        controller.isGRU.value = true;
+                        controller.getGRUPredict(cityName);
+                      },
+                      child: Container(
+                        width: 100,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: controller.isGRU.value
+                                ? const Color(0xFF43CCCC)
+                                : AppColors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(22)),
+                            border: Border.all(
+                                color: AppColors.white.withOpacity(0.2)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.25),
+                                offset: const Offset(5, 4),
+                                blurRadius: 10,
+                              ),
+                            ]),
+                        child: Text(
+                          'GRU',
+                          textAlign: TextAlign.center,
+                          style: context.textStyle.bodyMedium?.copyWith(
+                              color: controller.isGRU.value
+                                  ? AppColors.white
+                                  : const Color(0xFF43CCCC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )),
+              ],
+            ),
           ),
           20.gapHeight,
           Obx(() => controller.isLoading.value

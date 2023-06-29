@@ -49,7 +49,8 @@ class CreatePostController extends GetxController {
   }
 
   Future<String> uploadImageToStorage(File file) async {
-    final Reference ref = storageRef.child('Post_images').child('${file.path}.jpg');
+    final Reference ref =
+        storageRef.child('Post_images').child('${file.path}.jpg');
     final UploadTask uploadTask = ref.putFile(file);
     final snapshot = await uploadTask.whenComplete(() => null);
     final downloadUrl = await snapshot.ref.getDownloadURL();
@@ -59,12 +60,8 @@ class CreatePostController extends GetxController {
   Future<void> handleSumit() async {
     final String mediaUrl =
         await uploadImageToStorage(File(imagePost.value!.path));
-    await _postRepo.createPost(
-        const Uuid().v4(),
-        userName,
-        DateTime.now().toString(),
-        locationController.text,
-        mediaUrl);
+    await _postRepo.createPost(const Uuid().v4(), userName,
+        DateTime.now().toString(), locationController.text, mediaUrl);
     if (postPageVMD != null && homeVMD != null) {
       imagePost.value = null;
       homeVMD?.tabController.animateTo(1);
@@ -80,7 +77,8 @@ class CreatePostController extends GetxController {
     final List<Placemark> placemarks =
         await placemarkFromCoordinates(pos.latitude, pos.longitude);
     final Placemark place = placemarks[0];
-    final String formattedLocation = '${place.locality}, ${place.country}';
+    final String formattedLocation =
+        '${place.administrativeArea}, ${place.country}';
     locationController.text = formattedLocation;
   }
 }

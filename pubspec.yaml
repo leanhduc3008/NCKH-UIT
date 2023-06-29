@@ -15,6 +15,7 @@ dependencies:
   collection: any
   dio: ^5.0.3
   dots_indicator: ^3.0.0
+  dropdown_button2: ^2.1.4
   email_validator: '^2.1.16'
   equatable: ^2.0.5
   firebase_auth: ^4.3.0

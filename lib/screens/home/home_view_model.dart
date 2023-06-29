@@ -19,7 +19,7 @@ class HomeViewModel extends BaseViewModel<List<Destination?>>
     AppImages.imgDestination3,
   ];
   List<Destination?> listDestination = [];
-  late int current = 0;
+  RxInt current = 0.obs;
   final CarouselController controller = CarouselController();
 
   @override

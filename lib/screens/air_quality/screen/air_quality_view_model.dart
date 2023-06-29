@@ -7,12 +7,12 @@ import '../repository/air_quality_repo.dart';
 
 class AirQualityViewModel extends BaseViewModel<AirQuality> {
   final AirQualityRepository _repo = Get.find<AirQualityRepository>();
-  String cityName = 'HoChiMinh';
+  var cityName;
 
   @override
-  Future<AirQuality?> initialData() {
+  Future<AirQuality?> initialData() async {
     return _repo.getAqiHourly(
-        cityName,
+        cityName ?? 'HoChiMinh',
         DateFormat('yyyy-MM-dd').format(DateTime.now()),
         DateFormat('H').format(DateTime.now()));
   }
